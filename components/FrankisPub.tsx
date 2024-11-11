@@ -36,8 +36,17 @@ export default function FrankisPub() {
           </div>
         </div>
         <div className="relative z-10 text-center text-white w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Image
+            src="/logo.png"
+            alt="Fränkis Pub Atmosphäre"
+            className="mix-blend-multiply mx-auto mb-8 drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]"
+            width={200}
+            height={200}
+          >
+
+          </Image>
           <h1 className="text-5xl sm:text-6xl font-extrabold mb-4 tracking-tight">Fränkis Pub</h1>
-          <p className="text-xl sm:text-2xl mb-8 font-medium text-blue-100">Wo gute Zeiten und großartige Spiele aufeinandertreffen</p>
+          <p className="text-xl sm:text-2xl mb-8 font-medium text-blue-100">Ein Lokal, nicht nur für Billard Fans.</p>
           <Button onClick={scrollToZeiten} className="bg-white text-[#0763a9] hover:bg-blue-50 transition-colors duration-300 text-lg py-3 px-8 rounded-full font-semibold">
             Öffnungszeiten
           </Button>
@@ -154,7 +163,7 @@ export default function FrankisPub() {
               { icon: Phone, title: "Telefon", content: "+49 123 456789" },
               { icon: Mail, title: "E-Mail", content: "info@frankis-pub.de" },
             ].map((item, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl shadow-md text-center">
+              <div key={index} className="bg-white py-6 px-4 md:p-8 rounded-xl shadow-md text-center">
                 <item.icon className="w-12 h-12 mx-auto mb-4 text-[#0763a9]" />
                 <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                 <p className="text-gray-600">{item.content}</p>
