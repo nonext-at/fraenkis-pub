@@ -37,15 +37,15 @@ export default function FrankisPub() {
         </div>
         <div className="relative z-10 text-center text-white w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <Image
-            src="/logo.png"
+            src="/logo_white.png"
             alt="Fränkis Pub Atmosphäre"
-            className="mix-blend-multiply mx-auto mb-8 drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]"
+            className="mix-blend-multiply mx-auto mb-8 drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]"
             width={0}
             draggable={false}
             height={0}
             sizes="100vw"
-            style={{ width: '40vw', height: 'auto', maxWidth: '400px' }}
-          > 
+            style={{ width: '40vw', height: 'auto', maxWidth: '375px' }}
+          >
           </Image>
           <h1 className="text-5xl sm:text-6xl font-extrabold mb-4 tracking-tight">Fränkis Pub</h1>
           <p className="text-xl sm:text-2xl mb-8 font-medium text-blue-100">Ein Lokal, nicht nur für Billard Fans.</p>
@@ -104,7 +104,7 @@ export default function FrankisPub() {
           <p className="text-center text-lg mb-8">Besuchen Sie uns und genießen Sie eine tolle Atmosphäre!</p>
           <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-xl">
             {[
-              { days: "Geöffnet jeden Tag", hours: "19:00 - 02:00 Uhr" }, 
+              { days: "Geöffnet jeden Tag", hours: "19:00 - 02:00 Uhr" },
             ].map((schedule, index) => (
               <div key={index} className="flex justify-between items-center mb-4 last:mb-0 text-lg">
                 <span className="flex items-center gap-2">
@@ -115,11 +115,11 @@ export default function FrankisPub() {
             ))}
           </div>
           <div className="mt-8 text-center text-sm text-white/80">
-            <p>Sonderöffnungszeiten an Feiertagen & Events – aktuelle Infos findest Du auf unserem <a target="_blank" href="https://www.instagram.com/fraenkis_lustenau/" className="underline">Instagram</a>-Kanal.</p>
-          </div> 
+            <p>Sonderöffnungszeiten an Feiertagen & Events – aktuelle Infos findest Du auf unserem <a target="_blank" rel="noreferrer" href="https://www.instagram.com/fraenkis_lustenau/" className="underline">Instagram</a>-Kanal.</p>
+          </div>
         </div>
       </section>
- 
+
       {/* Special Events Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -165,19 +165,42 @@ export default function FrankisPub() {
           <h2 className="text-4xl font-bold text-center mb-16 tracking-tight">Kontakt</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
-              { icon: MapPin, title: "Adresse", content: "Widum 19, 6890 Lustenau" },
-              { icon: Phone, title: "Telefon", content: "+43 676 3807111" },
-              { icon: Mail, title: "E-Mail", content: "info@frankis-pub.at" },
+              {
+                icon: MapPin,
+                title: "Adresse",
+                content: "Widum 19, 6890 Lustenau",
+                link: "https://maps.google.com/?q=Fränkis+Pub+Lustenau"
+              },
+              {
+                icon: Phone,
+                title: "Telefon",
+                content: "+43 676 3807111",
+                link: "tel:+436763807111"
+              },
+              {
+                icon: Mail,
+                title: "E-Mail",
+                content: "info@frankis-pub.at",
+                link: "mailto:info@frankis-pub.at"
+              },
             ].map((item, index) => (
-              <div key={index} className="bg-white py-6 px-4 md:p-8 rounded-xl shadow-md text-center">
+              <a
+                key={index}
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                className="block bg-white py-6 px-4 md:p-8 rounded-xl shadow-md text-center"
+              >
                 <item.icon className="w-12 h-12 mx-auto mb-4 text-[#0763a9]" />
                 <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                 <p className="text-gray-600">{item.content}</p>
-              </div>
+              </a>
             ))}
           </div>
         </div>
       </section>
+
+
 
       {/* Footer */}
       <footer className="bg-[#044575] text-white py-12">
@@ -188,7 +211,7 @@ export default function FrankisPub() {
               { icon: Facebook, label: "Facebook", link: 'https://www.facebook.com/fraenkislustenau' },
               { icon: Instagram, label: "Instagram", link: 'https://www.instagram.com/fraenkis_lustenau/' },
             ].map((social, index) => (
-              <Link key={index} target="_blank" href={social.link} className="text-white hover:text-white transition-colors">
+              <Link key={index} rel="noreferrer" target="_blank" href={social.link} className="text-white hover:text-white transition-colors">
                 <social.icon className="w-6 h-6" />
                 <span className="sr-only">{social.label}</span>
               </Link>
