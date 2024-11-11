@@ -100,20 +100,26 @@ export default function FrankisPub() {
       {/* Opening Hours Section */}
       <section ref={zeitenRef} className="py-24 bg-gradient-to-br from-[#0763a9] to-[#044575] text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16 tracking-tight">Öffnungszeiten</h2>
+          <h2 className="text-4xl font-bold text-center mb-4 tracking-tight">Öffnungszeiten</h2>
+          <p className="text-center text-lg mb-8">Besuchen Sie uns und genießen Sie eine tolle Atmosphäre!</p>
           <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-xl">
             {[
-              { days: "Jeden Tag", hours: "19:00 - 02:00 Uhr" }, 
+              { days: "Geöffnet jeden Tag", hours: "19:00 - 02:00 Uhr" }, 
             ].map((schedule, index) => (
               <div key={index} className="flex justify-between items-center mb-4 last:mb-0 text-lg">
-                <span>{schedule.days}</span>
+                <span className="flex items-center gap-2">
+                  <i className="fas fa-calendar-alt"></i> {schedule.days}
+                </span>
                 <span className="font-semibold">{schedule.hours}</span>
               </div>
             ))}
           </div>
+          <div className="mt-8 text-center text-sm text-white/80">
+            <p>Sonderöffnungszeiten an Feiertagen & Events – aktuelle Infos findest Du auf unserem <a target="_blank" href="https://www.instagram.com/fraenkis_lustenau/" className="underline">Instagram</a>-Kanal.</p>
+          </div> 
         </div>
       </section>
-
+ 
       {/* Special Events Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
