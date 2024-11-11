@@ -123,8 +123,8 @@ export default function FrankisPub() {
       {/* Special Events Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16 tracking-tight">Besondere Veranstaltungen</h2>
-          <div className="space-y-24">
+          <h2 className="text-4xl font-bold text-center sm:mb-8 mb-16 tracking-tight">Besondere Veranstaltungen</h2>
+          <div className="space-y-12 sm:space-y-24">
             {[
               {
                 name: "Karaoke-Nächte",
@@ -138,7 +138,7 @@ export default function FrankisPub() {
               },
 
             ].map((event, index) => (
-              <div key={index} className={`flex flex-col lg:flex-row ${index % 2 === 0 ? '' : 'lg:flex-row-reverse'} items-center gap-12`}>
+              <div key={index} className={`flex flex-col lg:flex-row ${index % 2 === 0 ? '' : 'lg:flex-row-reverse'} items-center gap-6 sm:gap-12`}>
                 <div className="w-full lg:w-1/2">
                   <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg">
                     <Image
@@ -149,7 +149,7 @@ export default function FrankisPub() {
                     />
                   </div>
                 </div>
-                <div className="w-full lg:w-1/2 space-y-4">
+                <div className="w-full lg:w-1/2 space-y-2 sm:space-y-4">
                   <h3 className="text-2xl font-bold">{event.name}</h3>
                   <p className="text-gray-600 text-lg">{event.description}</p>
                 </div>
