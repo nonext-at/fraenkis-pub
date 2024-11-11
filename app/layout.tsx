@@ -15,7 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Fränkis Pub",
+  title: "Fränkis Pub - Bar, Billard, Dart",
   description: "Ein Lokal, nicht nur für Billard Fans",
 };
 
@@ -27,9 +27,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>Fränkis Pub</title>
-        <meta name="description" content="Ein Lokal, nicht nur für Billard Fans" />
-
         {/* Favicon */}
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
