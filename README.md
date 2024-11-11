@@ -1,6 +1,6 @@
 # Fränkis Pub 
 
-Fränkis Pub is a modern, responsive website for a fictional pub that offers various games and special events. This project showcases a sleek design using Next.js and Tailwind CSS.
+Fränkis Pub is a modern, responsive website for a pub that offers various games and special events. This project showcases a sleek design using Next.js and Tailwind CSS.
 
 ## Technologies Used
 
