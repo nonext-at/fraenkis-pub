@@ -40,10 +40,12 @@ export default function FrankisPub() {
             src="/logo.png"
             alt="Fränkis Pub Atmosphäre"
             className="mix-blend-multiply mx-auto mb-8 drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]"
-            width={200}
-            height={200}
-          >
-
+            width={0}
+            draggable={false}
+            height={0}
+            sizes="100vw"
+            style={{ width: '40vw', height: 'auto', maxWidth: '400px' }}
+          > 
           </Image>
           <h1 className="text-5xl sm:text-6xl font-extrabold mb-4 tracking-tight">Fränkis Pub</h1>
           <p className="text-xl sm:text-2xl mb-8 font-medium text-blue-100">Ein Lokal, nicht nur für Billard Fans.</p>
@@ -66,7 +68,7 @@ export default function FrankisPub() {
       {/* Games Section */}
       <section ref={spieleLosRef} id="spiele-los" className="py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16 tracking-tight">Spiele Los!</h2>
+          <h2 className="text-4xl font-bold text-center mb-16 tracking-tight">Unsere Angebote</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {[
               { name: "Bar", description: "Genießen Sie unsere Auswahl an Craft-Bieren und Cocktails", image: "/bar.jpg" },
@@ -101,9 +103,7 @@ export default function FrankisPub() {
           <h2 className="text-4xl font-bold text-center mb-16 tracking-tight">Öffnungszeiten</h2>
           <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-xl">
             {[
-              { days: "Montag - Donnerstag", hours: "16:00 - 01:00 Uhr" },
-              { days: "Freitag - Samstag", hours: "16:00 - 03:00 Uhr" },
-              { days: "Sonntag", hours: "14:00 - 00:00 Uhr" },
+              { days: "Jeden Tag", hours: "19:00 - 02:00 Uhr" }, 
             ].map((schedule, index) => (
               <div key={index} className="flex justify-between items-center mb-4 last:mb-0 text-lg">
                 <span>{schedule.days}</span>
@@ -159,9 +159,9 @@ export default function FrankisPub() {
           <h2 className="text-4xl font-bold text-center mb-16 tracking-tight">Kontakt</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
-              { icon: MapPin, title: "Adresse", content: "Hauptstraße 123, 12345 Musterstadt" },
-              { icon: Phone, title: "Telefon", content: "+49 123 456789" },
-              { icon: Mail, title: "E-Mail", content: "info@frankis-pub.de" },
+              { icon: MapPin, title: "Adresse", content: "Widum 19, 6890 Lustenau" },
+              { icon: Phone, title: "Telefon", content: "+43 676 3807111" },
+              { icon: Mail, title: "E-Mail", content: "info@frankis-pub.at" },
             ].map((item, index) => (
               <div key={index} className="bg-white py-6 px-4 md:p-8 rounded-xl shadow-md text-center">
                 <item.icon className="w-12 h-12 mx-auto mb-4 text-[#0763a9]" />
@@ -179,11 +179,10 @@ export default function FrankisPub() {
           <p className="mb-6 text-white">© 2024 Fränkis Pub. Alle Rechte vorbehalten.</p>
           <div className="flex justify-center space-x-6">
             {[
-              { icon: Facebook, label: "Facebook" },
-              { icon: Instagram, label: "Instagram" },
-              { icon: Twitter, label: "Twitter" },
+              { icon: Facebook, label: "Facebook", link: 'https://www.facebook.com/fraenkislustenau' },
+              { icon: Instagram, label: "Instagram", link: 'https://www.instagram.com/fraenkis_lustenau/' },
             ].map((social, index) => (
-              <Link key={index} href="#" className="text-white hover:text-white transition-colors">
+              <Link key={index} target="_blank" href={social.link} className="text-white hover:text-white transition-colors">
                 <social.icon className="w-6 h-6" />
                 <span className="sr-only">{social.label}</span>
               </Link>
