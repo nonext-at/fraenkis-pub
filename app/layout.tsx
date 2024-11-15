@@ -39,8 +39,8 @@ export default function RootLayout({
         <meta property="og:title" content="Fränkis Pub" />
         <meta property="og:description" content="Ein Lokal, nicht nur für Billard Fans" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://fraenkis-pub.vercel.app/" /> {/* Replace with actual URL */}
-        <meta property="og:image" content="https://fraenkis-pub.vercel.app/og-image.png" />
+        <meta property="og:url" content="https://fraenkis-pub.nonext.io/" />
+        <meta property="og:image" content="https://fraenkis-pub.nonext.io/og-image.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
 
@@ -48,7 +48,7 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Fränkis Pub" />
         <meta name="twitter:description" content="Ein Lokal, nicht nur für Billard Fans" />
-        <meta name="twitter:image" content="https://fraenkis-pub.vercel.app/og-image.png" />
+        <meta name="twitter:image" content="https://fraenkis-pub.nonext.io/og-image.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
