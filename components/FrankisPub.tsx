@@ -139,7 +139,7 @@ export default function FrankisPub() {
               </div>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h4 className="text-xl font-semibold mb-4">Reguläre Öffnungszeiten</h4>
+                  <h4 className="text-2xl font-semibold mb-4">Reguläre Öffnungszeiten</h4>
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-lg">Jeden Tag von <b>19:00 - 02:00</b></span>
                     {/* <span className="text-lg font-medium">19:00 - 02:00 Uhr</span> */}
@@ -152,7 +152,7 @@ export default function FrankisPub() {
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-xl font-semibold mb-4">Sonderöffnungszeiten</h4>
+                  <h4 className="text-2xl font-semibold mb-4">Sonderöffnungszeiten</h4>
                   <p className="mb-4">
                     An Feiertagen und für spezielle Events können unsere Öffnungszeiten variieren.
                   </p>
