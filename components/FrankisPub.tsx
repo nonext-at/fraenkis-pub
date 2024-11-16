@@ -1,309 +1,391 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { ChevronDown, MapPin, Phone, Mail, Facebook, Instagram, Twitter, Beer, Dices, Music, Calendar, Clock } from 'lucide-react'
-import Link from "next/link"
-import Image from "next/image"
-import { motion } from "framer-motion"
-import { useEffect, useRef, useState } from "react"
+import { useState, useEffect, useRef } from 'react'
+import { motion, useAnimation } from 'framer-motion'
+import { Clock, MapPin, Phone, Mail, Calendar, Target, PhoneIcon as WhatsApp, Instagram, Facebook, BeerIcon, MicVocal, Baby, Beer } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import mapboxgl from 'mapbox-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
-export default function FrankisPub() {
-  const spieleLosRef = useRef<HTMLElement>(null)
-  const zeitenRef = useRef<HTMLElement>(null)
+// Replace with your actual Mapbox access token
+mapboxgl.accessToken = 'pk.eyJ1IjoibWFpa2VydWRldiIsImEiOiJjbTEwaDJuZ3owZ3ZvMmlzNGRzZ3Y5OHl1In0.Gk1Lnu_x8a-Kc6ZyUzmlbg'
 
-  const scrollToSpieleLos = () => {
-    spieleLosRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const scrollToZeiten = () => {
-    zeitenRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const games = [
-    { name: "Bar", image: "/bar.jpg", icon: Beer },
-    { name: "Billard", image: "/billard.jpg", icon: Dices },
-    { name: "Air Hockey", image: "/airhockey.jpg", icon: Dices },
-    { name: "Tischfußball", image: "/tischfussball.jpg", icon: Dices },
-    { name: "Darts", image: "/darts.jpg", icon: Dices },
-    { name: "Flipperautomat", image: "/pinball.jpg", icon: Dices },
-  ]
-
-  const events = [
-    { name: "Karaoke-Nächte", description: "Jeden ersten Donnerstag des Monats", image: "/karaoke.jpg" },
-    { name: "Family Nachmittag", description: "Jeden dritten Sonntag - 1h gratis Billiard", image: "/family_billiard.jpg" },
-    { name: "Frühschoppen", description: "Jeden ersten Sonntag von 10:00 - 14:00", image: "/fruehschoppen.jpg" },
-  ]
-
-  const [isOpen, setIsOpen] = useState(false)
+function MapboxMap() {
+  const mapContainer = useRef(null)
+  const map = useRef(null)
+  const [lng] = useState(9.658043250341874)
+  const [lat] = useState(47.43140631762227)
+  const [zoom] = useState(8)
 
   useEffect(() => {
-    const checkIfOpen = () => {
-      const now = new Date()
-      const day = now.getDay()
-      const hour = now.getHours()
-      setIsOpen((hour >= 19 || hour < 2))
-    }
+    if (map.current) return; // initialize map only once
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [lng, lat],
+      zoom: zoom
+    });
+  
+    // Add navigation control (the +/- zoom buttons)
+    map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+  
+    const el = document.createElement('div');
+    el.style.backgroundImage = 'url("/pin.png")';
+    el.style.width = '30px'; // Set your image dimensions
+    el.style.height = '50px';
+    el.style.backgroundSize = 'cover'; // Ensure the image covers the div
 
-    checkIfOpen()
-    const interval = setInterval(checkIfOpen, 60000)
-    return () => clearInterval(interval)
+    // Add a marker at the specified location
+    new mapboxgl.Marker({
+      element: el,
+      anchor: 'bottom'
+    })
+      .setLngLat([lng, lat])
+      .addTo(map.current);
+  
+    // Smoothly zoom in to the marker after the map loads
+    map.current.on('load', () => {
+      map.current.flyTo({
+        center: [lng, lat],
+        zoom: 18, // Target zoom level
+        speed: 0.1, // Adjust the speed of the zoom
+        curve: 1.5, // Makes the zoom more dramatic
+        easing: (t) => t // Linear easing
+      });
+    });
+  }, [lng, lat, zoom]);
+  
+
+  return <div ref={mapContainer} className="map-container skew-y-3 h-[400px] w-full rounded-lg shadow-md" />
+}
+
+export default function Component() {
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
+  const controls = useAnimation()
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setCursorPosition({ x: e.clientX, y: e.clientY })
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  useEffect(() => {
+    controls.start({
+      x: cursorPosition.x - 20,
+      y: cursorPosition.y - 20,
+      transition: { type: 'spring', mass: 0.1, stiffness: 10000 },
+    })
+  }, [cursorPosition, controls])
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+    setTimeout(() => setIsLoading(false), 2000)
+  }
+
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = 'smooth'
+    return () => {
+      document.documentElement.style.scrollBehavior = 'auto'
+    }
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center">
-        <div className="absolute inset-0 ">
-          <div className="absolute inset-0 w-full h-full">
-            <Image draggable={false}
-              src="/salva.jpg"
-              alt="Fränkis Pub Atmosphäre"
-              fill
-              className="object-cover blur-sm select-none"
-              sizes="100vw"
-              priority
-            />
-          </div>
-        </div>
-        <div className="relative z-10 text-center text-white w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Image draggable={false}
-            src="/logo_white.png"
-            alt="Fränkis Pub Logo"
-            className="mix-blend-multiply select-none mx-auto mb-8 drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]"
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: '40vw', height: 'auto', maxWidth: '375px' }}
-          />
-          <h1 className="text-5xl sm:text-6xl font-extrabold mb-4 tracking-tight">Fränkis Pub</h1>
-          <p className="text-xl sm:text-2xl mb-8 font-medium text-gray-200">Ein Lokal, nicht nur für Billard Fans.</p>
-          <Button onClick={scrollToZeiten} className="bg-white text-gray-600 hover:bg-gray-50 transition-colors duration-300 text-lg py-3 px-8 rounded-full font-semibold">
-            Öffnungszeiten
-          </Button>
-        </div>
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 cursor-pointer"
-          initial={{ y: 0 }}
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-          onClick={scrollToSpieleLos}
-        >
-          <ChevronDown className="w-12 h-12 text-white hover:text-gray-300 transition-colors" />
-          <span className="sr-only">Scroll nach unten</span>
-        </motion.div>
-      </section>
-
-      {/* Games Section */}
-      <section ref={spieleLosRef} id="spiele-los" className="py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16 tracking-tight text-gray-900">Unsere Angebote</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {games.map((game, index) => (
+    <div className="min-h-screen bg-gray-100 text-gray-800 overflow-hidden cursor-none">
+      <motion.div
+        className="hidden sm:block fixed text-4xl pointer-events-none z-50"
+        animate={controls}
+        style={{ userSelect: 'none' }}
+      >
+        🎱
+      </motion.div>
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="flex space-x-2">
+            {[1, 2, 3].map((i) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card className="overflow-hidden group shadow-lg hover:shadow-xl transition-shadow duration-300">
-                  <div className="relative h-64">
-                    <Image
-                      src={game.image}
-                      alt={game.name}
-                      fill
-                      className="object-cover transition-all duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4 flex items-center justify-between">
-                      <h3 className="text-2xl font-bold text-white">{game.name}</h3>
-                      <game.icon className="w-8 h-8 text-white opacity-75" />
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
+                key={i}
+                className="w-4 h-4 bg-white rounded-full"
+                animate={{
+                  y: [0, -10, 0],
+                  backgroundColor: ['#fff', '#f00', '#fff'],
+                }}
+                transition={{
+                  duration: 0.5,
+                  repeat: Infinity,
+                  delay: i * 0.1,
+                }}
+              />
             ))}
           </div>
         </div>
-      </section>
-
-      <section id="oeffnungszeiten" className="py-24 bg-gray-100">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16 tracking-tight text-gray-900">Öffnungszeiten</h2>
-          <div className="max-w-4xl mx-auto bg-white text-black rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.2)] overflow-hidden">
-            <div className="p-8 md:p-12">
-              <div className="flex items-center justify-between mb-8">
-                <Beer className="w-12 h-12" />
-                <h3 className="text-3xl font-bold">Wann kannst du uns besuchen?</h3>
-                <Clock className="w-12 h-12" />
-              </div>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h4 className="text-2xl font-semibold mb-4">Reguläre Öffnungszeiten</h4>
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-lg">Jeden Tag von <b>19:00 - 02:00</b></span>
-                    {/* <span className="text-lg font-medium">19:00 - 02:00 Uhr</span> */}
-                  </div>
-                  <div className={`inline-block py-2 px-4 rounded-full ${isOpen ? 'bg-green-500' : 'bg-red-500'} text-white font-semibold`}>
-                    {isOpen ? 'Jetzt geöffnet' : 'Derzeit geschlossen'}
-                  </div>
-                  <p className="mt-4 text-sm text-gray-600 italic">
-                    Wer früher kommt, kann länger trinken!
-                  </p>
-                </div>
-                <div>
-                  <h4 className="text-2xl font-semibold mb-4">Sonderöffnungszeiten</h4>
-                  <p className="mb-4">
-                    An Feiertagen und für spezielle Events können unsere Öffnungszeiten variieren.
-                  </p>
-                  <div className="flex items-center mb-4">
-                    <Calendar className="w-5 h-5 mr-2" />
-                    <span>Aktuelle Updates:</span>
-                  </div>
-                  <Link 
-                    href="https://www.instagram.com/fraenkis_lustenau/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center bg-gray-200 text-black py-2 px-4 rounded-full hover:bg-opacity-90 transition-colors duration-300"
-                  >
-                    <Instagram className="w-5 h-5 mr-2" />
-                    <span>Folge uns auf Instagram</span>
-                  </Link>
-                </div>
-              </div>
+      )}
+      <div>
+        <header className="fixed w-full z-40 bg-white bg-opacity-80 backdrop-blur-md shadow-md">
+          <div className="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div className="flex items-center"> 
+              <span className="text-xl font-bold text-gray-800">Fränkis Pub</span>
+            </div>
+            <nav>
+              <ul className="sm:flex space-x-6 hidden">
+                {['Home', 'Aktivitäten', 'Öffnungszeiten', 'Anfahrt', 'Kontakt', 'Reservieren'].map((item) => (
+                  <li key={item}>
+                    <a
+                      href={`#${item.toLowerCase()}`}
+                      className="text-md font-bold mb-10 text-center text-gray-800 hover:text-blue-600 transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+                    >
+                      {item}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <div className="flex space-x-4">
+              <Link href="https://www.instagram.com/fraenkis_lustenau/" target="_blank" rel="noopener noreferrer">
+                <Instagram className="h-6 w-6 text-gray-600 hover:text-blue-600 transition-colors duration-300 hover:scale-105 transition-transform duration-200" />
+              </Link>
+              <Link href="https://www.facebook.com/fraenkislustenau" target="_blank" rel="noopener noreferrer">
+                <Facebook className="h-6 w-6 text-gray-600 hover:text-blue-600 transition-colors duration-300 hover:scale-105 transition-transform duration-200" />
+              </Link>
             </div>
           </div>
-        </div>
-      </section>
+        </header>
+        <main className='bg-gradient-to-br from-blue-100 via-indigo-100 to-sky-100'>
+          <section id="home" className="h-screen flex items-center justify-center relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-200 via-indigo-200 to-sky-200 opacity-70" />
+            <div className="absolute inset-0" />
+            <div className="text-center z-10">
+              <Image draggable={false} src={"/logo.png"} className='select-none mx-auto mb-6 drop-shadow-[0_0_25px_white]' width={300} height={300} alt=''></Image>
+              <h1 className="select-none text-4xl sm:text-5xl text-white font-bold drop-shadow-lg">
+                Willkommen im <br />
+                <span className="select-none text-6xl sm:text-7xl bg-gradient-to-r from-[#0163AB] drop-shadow-[0_0_15px_white] to-[#2674ac] text-transparent bg-clip-text">
+                  Fränkis Pub
+                </span>
+              </h1>
+            </div>
+          </section>
 
-      {/* Events Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16 tracking-tight text-gray-900">Besondere Veranstaltungen</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {events.map((event, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card className="overflow-hidden group shadow-lg hover:shadow-xl transition-shadow duration-300">
-                  <div className="relative h-48 md:h-64">
-                    <Image
-                      src={event.image}
-                      alt={event.name}
-                      fill
-                      className="object-cover transition-all duration-500 group-hover:scale-110"
+          <section id="aktivitäten" className="py-20 bg-white skew-y-3 -mt-20 shadow-md">
+          <div className="container mx-auto px-6 -skew-y-3">
+            <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Aktivitäten &amp; Events</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { 
+                  icon: MicVocal, 
+                  title: 'Karaoke Abend', 
+                  date: 'Jeden ersten Donnerstag', 
+                  image: '/karaoke.jpeg'
+                },
+                { 
+                  icon: Baby, 
+                  title: 'Family Nachmittag', 
+                  date: 'Jeden dritten Sonntag (13:00 - 18:00)', 
+                  image: '/family_billiard.jpg'
+                },
+                { 
+                  icon: Beer, 
+                  title: 'Frühschoppen', 
+                  date: 'Jeden ersten Sonntag (10:00 - 14:00)', 
+                  image: '/fruehschoppen.jpg'
+                },
+              ].map(({ icon: Icon, title, date, image }) => (
+                <motion.div
+                  key={title}
+                  className="select-none bg-gray-50 rounded-lg shadow-md hover:shadow-blue-200 transition-shadow duration-300 hover:scale-105 transition-transform duration-200 overflow-hidden"
+                  whileHover={{ scale: 1.05, rotateY: 5, rotateX: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <div className="relative h-48 w-full">
+                    <Image 
+                      src={image} 
+                      alt={title} 
+                      layout="fill" 
+                      objectFit="cover"
+                      className="transition-transform duration-300 hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-                      <h3 className="text-2xl font-bold text-white mb-2">{event.name}</h3>
-                      <p className="text-md text-white font-medium">
-                        {event.description}
-                      </p>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                      <h3 className="text-xl font-semibold mb-1">{title}</h3>
+                      <p className="text-sm">{date}</p>
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 z-0 bg-gradient-to-t from-black/70 to-transparent p-12"></div>
                   </div>
-                </Card>
-              </motion.div>
-            ))}
+                  <div className="p-4 flex items-center justify-between">
+                    <Icon className="w-8 h-8 text-[#0163AB]" />
+                    <button className="px-4 py-2 bg-[#0163AB] text-white rounded-md hover:bg-[#267fbe] transition-colors duration-300">
+                      Mehr Info
+                    </button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Opening Hours and Contact Section */}
-      <section id="kontakt" className="py-24 bg-gray-100">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-center mb-16 tracking-tight text-gray-900">Kontakt</h2>
-        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.1)] overflow-hidden">
-          <div className="p-8 md:p-12">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-2xl font-semibold mb-6">Kontaktiere uns</h3>
-                <ul className="space-y-4">
-                  <li>
-                    <a href="tel:+436763807111" className="flex items-center group">
-                      <div className="bg-gray-100 p-3 rounded-full shadow-md mr-4 group-hover:bg-gray-200 transition-colors duration-300">
-                        <Phone className="w-6 h-6 text-gray-600" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-500">Telefon</p>
-                        <p className="text-lg font-medium">+43 676 3807111</p>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="mailto:info@frankis-pub.at" className="flex items-center group">
-                      <div className="bg-gray-100 p-3 rounded-full shadow-md mr-4 group-hover:bg-gray-200 transition-colors duration-300">
-                        <Mail className="w-6 h-6 text-gray-600" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-500">E-Mail</p>
-                        <p className="text-lg font-medium">info@frankis-pub.at</p>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://maps.google.com/?q=Fränkis+Pub+Lustenau" target="_blank" rel="noopener noreferrer" className="flex items-center group">
-                      <div className="bg-gray-100 p-3 rounded-full shadow-md mr-4 group-hover:bg-gray-200 transition-colors duration-300">
-                        <MapPin className="w-6 h-6 text-gray-600" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-500">Adresse</p>
-                        <p className="text-lg font-medium">Widum 19, 6890 Lustenau</p>
-                      </div>
-                    </a>
-                  </li>
+          <section id="öffnungszeiten" className="py-20 bg-gray-200 -skew-y-3 relative z-10 shadow-md">
+            <div className="container mx-auto px-6 -skew-y-3">
+              <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Öffnungszeiten</h2>
+              <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
+                <ul className="space-y-2">
+                  <li className="flex justify-between">
+                    <span className="font-semibold">Jeden Tag:</span>
+                    <span>19:00 - 02:00</span>
+                  </li> 
                 </ul>
               </div>
-              <div>
-                <h3 className="text-2xl font-semibold mb-6">Folge uns</h3>
-                <p className="mb-6 text-gray-600">Bleib auf dem Laufenden über unsere neuesten Events und Angebote!</p>
-                <div className="flex flex-col space-y-4">
-                  <a 
-                    href="https://www.facebook.com/fraenkislustenau" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="inline-flex items-center justify-center bg-gray-100 px-4 py-2 rounded-full shadow-md text-gray-600 hover:bg-gray-200 transition-colors duration-300 w-full"
-                  >
-                    <Facebook className="w-5 h-5 mr-3" />
-                    <span>Besuche uns auf Facebook</span>
-                  </a>
-                  <a 
-                    href="https://www.instagram.com/fraenkis_lustenau/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="inline-flex items-center justify-center bg-gray-100 px-4 py-2 rounded-full shadow-md text-gray-600 hover:bg-gray-200 transition-colors duration-300 w-full"
-                  >
-                    <Instagram className="w-5 h-5 mr-3" />
-                    <span>Folge uns auf Instagram</span>
-                  </a>
+            </div>
+          </section>
+
+          <section id="anfahrt" className="py-20 bg-white skew-y-3 relative z-20 shadow-md">
+            <div className="container mx-auto px-6 -skew-y-3">
+              <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Anfahrt</h2>
+              <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+                <div className="w-full md:w-1/2">
+                  <MapboxMap />
+                </div>
+                <div className="w-full md:w-1/2 space-y-4">
+                  <p className="text-[#0163AB]"><MapPin className="inline mr-2" />Widum 19, 6890 Lustenau</p> 
+                  <p className="text-gray-600">Parken ist auf dem Kiesplatz neben dem Lokal möglich, ansonsten beim <br /> Spar auf dem öffentlichen Parkplatz.</p>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+          </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="mb-6 text-gray-400">© 2024 Fränkis Pub. Alle Rechte vorbehalten.</p>
-          <div className="flex justify-center space-x-6">
-            {[
-              { icon: Facebook, label: "Facebook", link: 'https://www.facebook.com/fraenkislustenau' },
-              { icon: Instagram, label: "Instagram", link: 'https://www.instagram.com/fraenkis_lustenau/' },
-            ].map((social, index) => (
-              <Link key={index} href={social.link} target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                <social.icon className="w-6 h-6" />
-                <span className="sr-only">{social.label}</span>
-              </Link>
-            ))}
+          <section id="whatsapp" className="py-20 bg-gray-200 -skew-y-3 relative z-10">
+            <div className="container mx-auto px-6 -skew-y-3">
+              <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Tritt unserer <span className='text-[#0163AB]'>WhatsApp</span>-Gruppe bei</h2>
+              <div className="flex flex-col items-center">
+                <Image
+                  draggable={false}
+                  src="/qr.png"
+                  alt="WhatsApp QR-Code"
+                  width={200}
+                  height={200}
+                  className="rounded-lg shadow-md mb-4"
+                />
+                <p className="text-gray-600 text-center">Scanne diesen QR-Code mit deinem Handy, um unserer WhatsApp-Gruppe beizutreten <br /> und über Events und Aktionen auf dem Laufenden zu bleiben!</p>
+              </div> 
+          </div>
+        </section>
+
+        <section id="kontakt" className="py-20 bg-white skew-y-3 relative z-20 shadow-md">
+          <div className="container mx-auto px-6 -skew-y-3">
+            <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Kontakt</h2>
+            <div className="flex flex-col md:flex-row justify-around items-center gap-8">
+              <div className="space-y-4">
+                <p className="flex items-center text-gray-600"><Phone className="mr-2 text-[#0163AB]" /> +43 676 3807111</p>
+                <p className="flex items-center text-gray-600"><Mail className="mr-2 text-[#0163AB]" /> info@fränkis.at</p>
+                <p className="flex items-center text-gray-600"><MapPin className="mr-2 text-[#0163AB]" /> Widum 19, 6890 Lustenau</p> 
+              </div>
+              <div className="w-full md:w-1/2 max-w-md">
+                <form className="space-y-4">
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    className="cursor-none w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                    required
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    className="cursor-none w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                    required
+                  />
+                  <textarea
+                    placeholder="Nachricht"
+                    rows={4}
+                    className="cursor-none w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                    required
+                  ></textarea>
+                  <motion.button
+                    type="submit"
+                    className="cursor-none w-full bg-gradient-to-r from-[#0163AB] to-[#267fbe] text-white font-semibold py-2 rounded-md transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Nachricht senden
+                  </motion.button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="reservieren" className="py-20 bg-gray-200 -skew-y-3 relative z-10">
+          <div className="container mx-auto px-6 -skew-y-3">
+            <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Billiard Tisch reservieren</h2>
+            <form className="max-w-md mx-auto space-y-4">
+              <input
+                type="text"
+                placeholder="Name"
+                className="cursor-none w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                required
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                className="cursor-none w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                required
+              />
+              <input
+                type="tel"
+                placeholder="Telefonnummer"
+                className="cursor-none w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                required
+              />
+              <input
+                type="date"
+                className="cursor-none w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                required
+              />
+              <input
+                type="time"
+                className="cursor-none w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                required
+              />
+              <select
+                className="cursor-none w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                required
+              >
+                <option value="">Tischnummer</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+              <motion.button
+                type="submit"
+                className="cursor-none w-full bg-gradient-to-r from-[#0164ab] to-[#267fbe] text-white font-semibold py-2 rounded-md transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleClick()
+                }}
+              >
+                Reservieren
+              </motion.button>
+            </form>
+          </div>
+        </section>
+      </main>
+      <footer className="bg-gray-100 text-black font-bold py-6 relative z-30">
+        <div className="container mx-auto px-6 text-center">
+          <p>&copy; 2024 Fränkis. All rights reserved.</p>
+          <div className="flex justify-center space-x-4 mt-4">
+            <Link href="https://www.instagram.com/fraenkis_lustenau/" target="_blank" rel="noopener noreferrer">
+              <Instagram className="cursor-none h-6 w-6 text-black hover:text-blue-400 transition-colors duration-300 hover:scale-105 transition-transform duration-200" />
+            </Link>
+            <Link href="https://www.facebook.com/fraenkislustenau" target="_blank" rel="noopener noreferrer">
+              <Facebook className="cursor-none h-6 w-6 text-black hover:text-blue-400 transition-colors duration-300 hover:scale-105 transition-transform duration-200" />
+            </Link>
           </div>
         </div>
       </footer>
     </div>
+    </div >
   )
 }
