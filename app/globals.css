@@ -19,6 +19,9 @@ body {
   transform: skewY(-3deg); /* Cancel out for natural look */
 }
 
+::selection{
+  background: #b6e2ff;
+}
 
 @layer base {
   :root {

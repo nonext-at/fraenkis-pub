@@ -199,19 +199,33 @@ export default function Component() {
           </div>
         </header>
         <main className='bg-gradient-to-br from-blue-100 via-indigo-100 to-sky-100'>
-          <section id="home" className="h-screen flex items-center justify-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-200 via-indigo-200 to-sky-200 opacity-70" />
-            <div className="absolute inset-0" />
-            <div className="text-center z-10">
-              <Image draggable={false} src={"/logo.png"} className='select-none mx-auto mb-6 drop-shadow-[0_0_25px_white]' width={300} height={300} alt=''></Image>
-              <h1 className="select-none text-4xl sm:text-5xl text-white font-bold drop-shadow-lg">
-                Willkommen im <br />
-                <span className="select-none text-6xl sm:text-7xl bg-gradient-to-r from-[#0163AB] drop-shadow-[0_0_15px_white] to-[#2674ac] text-transparent bg-clip-text">
-                  Fränkis Pub
-                </span>
-              </h1>
-            </div>
-          </section>
+  <section id="home" className="h-screen flex items-center justify-center relative overflow-hidden">
+    {/* Background Video */}
+    <video
+      className="absolute inset-0 w-full h-full object-cover blur-md"
+      src="/bg-video.mp4"
+      //@ts-ignore
+      type="video/webm"
+      autoPlay
+      loop
+      muted
+      playsInline
+    />
+    
+    {/* Overlay */}
+    <div className="absolute inset-0 bg-gradient-to-br from-blue-200 via-indigo-200 to-sky-200 opacity-40" />
+    
+    {/* Content */}
+    <div className="text-center z-10">
+      <Image draggable={false} src={"/logo.png"} className='select-none mx-auto mb-6 drop-shadow-[0_0_25px_white]' width={300} height={300} alt=''></Image>
+      <h1 className="select-none text-4xl sm:text-5xl text-white font-bold drop-shadow-lg">
+        Willkommen im <br />
+        <span className="select-none text-6xl sm:text-7xl bg-gradient-to-r from-[#0163AB] drop-shadow-[0_0_15px_white] to-[#2674ac] text-transparent bg-clip-text">
+          Fränkis Pub
+        </span>
+      </h1>
+    </div>
+  </section>
 
           <section id="aktivitäten" className="py-20 bg-white skew-y-3 -mt-20 shadow-md">
           <div className="container mx-auto px-6 -skew-y-3">
