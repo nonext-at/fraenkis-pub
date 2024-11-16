@@ -95,7 +95,7 @@ export default function Component() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-800 overflow-hidden cursor-none">
+    <div className="min-h-screen bg-gray-100 text-gray-800 overflow-hidden ">
       {/* <motion.div
         className="hidden sm:block fixed text-4xl pointer-events-none z-50"
         animate={controls}
@@ -285,24 +285,24 @@ export default function Component() {
                   <input
                     type="text"
                     placeholder="Name"
-                    className="cursor-none w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                    className=" w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                     required
                   />
                   <input
                     type="email"
                     placeholder="Email"
-                    className="cursor-none w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                    className=" w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                     required
                   />
                   <textarea
                     placeholder="Nachricht"
                     rows={4}
-                    className="cursor-none w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                    className=" w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                     required
                   ></textarea>
                   <motion.button
                     type="submit"
-                    className="cursor-none w-full bg-gradient-to-r from-[#0163AB] to-[#267fbe] text-white font-semibold py-2 rounded-md transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+                    className=" w-full bg-gradient-to-r from-[#0163AB] to-[#267fbe] text-white font-semibold py-2 rounded-md transition-colors duration-300 hover:scale-105 transition-transform duration-200"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -321,33 +321,33 @@ export default function Component() {
               <input
                 type="text"
                 placeholder="Name"
-                className="cursor-none w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                className=" w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                 required
               />
               <input
                 type="email"
                 placeholder="Email"
-                className="cursor-none w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                className=" w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                 required
               />
               <input
                 type="tel"
                 placeholder="Telefonnummer"
-                className="cursor-none w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                className=" w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                 required
               />
               <input
                 type="date"
-                className="cursor-none w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                className=" w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                 required
               />
               <input
                 type="time"
-                className="cursor-none w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                className=" w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                 required
               />
               <select
-                className="cursor-none w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                className=" w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                 required
               >
                 <option value="">Tischnummer</option>
@@ -358,7 +358,7 @@ export default function Component() {
               </select>
               <motion.button
                 type="submit"
-                className="cursor-none w-full bg-gradient-to-r from-[#0164ab] to-[#267fbe] text-white font-semibold py-2 rounded-md transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+                className=" w-full bg-gradient-to-r from-[#0164ab] to-[#267fbe] text-white font-semibold py-2 rounded-md transition-colors duration-300 hover:scale-105 transition-transform duration-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={(e) => {
@@ -377,10 +377,10 @@ export default function Component() {
           <p>&copy; 2024 Fränkis. All rights reserved.</p>
           <div className="flex justify-center space-x-4 mt-4">
             <Link href="https://www.instagram.com/fraenkis_lustenau/" target="_blank" rel="noopener noreferrer">
-              <Instagram className="cursor-none h-6 w-6 text-black hover:text-blue-400 transition-colors duration-300 hover:scale-105 transition-transform duration-200" />
+              <Instagram className=" h-6 w-6 text-black hover:text-blue-400 transition-colors duration-300 hover:scale-105 transition-transform duration-200" />
             </Link>
             <Link href="https://www.facebook.com/fraenkislustenau" target="_blank" rel="noopener noreferrer">
-              <Facebook className="cursor-none h-6 w-6 text-black hover:text-blue-400 transition-colors duration-300 hover:scale-105 transition-transform duration-200" />
+              <Facebook className=" h-6 w-6 text-black hover:text-blue-400 transition-colors duration-300 hover:scale-105 transition-transform duration-200" />
             </Link>
           </div>
         </div>
