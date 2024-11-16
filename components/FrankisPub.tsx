@@ -64,7 +64,7 @@ export default function Component() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
   const controls = useAnimation()
 
-  useEffect(() => {
+  /* useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setCursorPosition({ x: e.clientX, y: e.clientY })
     }
@@ -78,7 +78,7 @@ export default function Component() {
       y: cursorPosition.y - 20,
       transition: { type: 'spring', mass: 0.1, stiffness: 10000 },
     })
-  }, [cursorPosition, controls])
+  }, [cursorPosition, controls]) */
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -96,13 +96,13 @@ export default function Component() {
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800 overflow-hidden cursor-none">
-      <motion.div
+      {/* <motion.div
         className="hidden sm:block fixed text-4xl pointer-events-none z-50"
         animate={controls}
         style={{ userSelect: 'none' }}
       >
         🎱
-      </motion.div>
+      </motion.div> */}
       {isLoading && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="flex space-x-2">
