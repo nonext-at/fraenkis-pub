@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import EmailLink from './EmailLink'
 
 // Replace with your actual Mapbox access token
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFpa2VydWRldiIsImEiOiJjbTEwaDJuZ3owZ3ZvMmlzNGRzZ3Y5OHl1In0.Gk1Lnu_x8a-Kc6ZyUzmlbg'
@@ -24,7 +25,8 @@ function MapboxMap() {
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v12',
       center: [lng, lat],
-      zoom: zoom
+      zoom: zoom,
+      attributionControl: false
     });
   
     // Add navigation control (the +/- zoom buttons)
@@ -94,6 +96,48 @@ export default function Component() {
     }
   }, [])
 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedTable, setSelectedTable] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+
+  const months = [
+    "Januar",
+    "Februar",
+    "März",
+    "April",
+    "Mai",
+    "Juni",
+    "Juli",
+    "August",
+    "September",
+    "Oktober",
+    "November",
+    "Dezember",
+  ];
+
+  useEffect(() => {
+    const today = new Date();
+    setSelectedDate(
+      `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
+        2,
+        "0"
+      )}-${String(today.getDate()).padStart(2, "0")}`
+    );
+  }, []);
+
+  const daysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
+
+  const generateDays = () => {
+    const days = [];
+    for (let i = 1; i <= daysInMonth(selectedMonth, selectedYear); i++) {
+      days.push(i);
+    }
+    return days;
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800 overflow-hidden ">
       {/* <motion.div
@@ -127,8 +171,8 @@ export default function Component() {
       <div>
         <header className="fixed w-full z-40 bg-white bg-opacity-80 backdrop-blur-md shadow-md">
           <div className="container mx-auto px-6 py-3 flex justify-between items-center">
-            <div className="flex items-center"> 
-              <span className="text-xl font-bold text-gray-800">Fränkis Pub</span>
+            <div className="flex items-center">  
+              <Image draggable={false} src={"/logo_blue.png"} className='select-none mx-auto drop-shadow-[0_0_3px_rgba(0,0,0,0.2)] ' width={100} height={100} alt=''></Image>
             </div>
             <nav>
               <ul className="sm:flex space-x-6 hidden">
@@ -136,7 +180,7 @@ export default function Component() {
                   <li key={item}>
                     <a
                       href={`#${item.toLowerCase()}`}
-                      className="text-md font-bold mb-10 text-center text-gray-800 hover:text-blue-600 transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+                      className="text-md font-bold mb-10 text-center text-gray-800 hover:text-[#0163AB] transition-all duration-300"
                     >
                       {item}
                     </a>
@@ -146,10 +190,10 @@ export default function Component() {
             </nav>
             <div className="flex space-x-4">
               <Link href="https://www.instagram.com/fraenkis_lustenau/" target="_blank" rel="noopener noreferrer">
-                <Instagram className="h-6 w-6 text-gray-600 hover:text-blue-600 transition-colors duration-300 hover:scale-105 transition-transform duration-200" />
+                <Instagram className="h-6 w-6 text-gray-600 hover:text-[#0163AB] duration-300 transition-all" />
               </Link>
               <Link href="https://www.facebook.com/fraenkislustenau" target="_blank" rel="noopener noreferrer">
-                <Facebook className="h-6 w-6 text-gray-600 hover:text-blue-600 transition-colors duration-300 hover:scale-105 transition-transform duration-200" />
+                <Facebook className="h-6 w-6 text-gray-600 hover:text-[#0163AB] duration-300 transition-all" />
               </Link>
             </div>
           </div>
@@ -247,7 +291,7 @@ export default function Component() {
                   <MapboxMap />
                 </div>
                 <div className="w-full md:w-1/2 space-y-4">
-                  <p className="text-[#0163AB]"><MapPin className="inline mr-2" />Widum 19, 6890 Lustenau</p> 
+                  <a href="https://maps.google.com/?q=Fränkis+Pub+Lustenau" target="_blank" rel="noopener noreferrer" className="text-[#0163AB] hover:underline"><MapPin className="inline mr-2" />Widum 19, 6890 Lustenau</a> 
                   <p className="text-gray-600">Parken ist auf dem Kiesplatz neben dem Lokal möglich, ansonsten beim <br /> Spar auf dem öffentlichen Parkplatz.</p>
                 </div>
               </div>
@@ -276,9 +320,9 @@ export default function Component() {
             <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Kontakt</h2>
             <div className="flex flex-col md:flex-row justify-around items-center gap-8">
               <div className="space-y-4">
-                <p className="flex items-center text-gray-600"><Phone className="mr-2 text-[#0163AB]" /> +43 676 3807111</p>
-                <p className="flex items-center text-gray-600"><Mail className="mr-2 text-[#0163AB]" /> info@fränkis.at</p>
-                <p className="flex items-center text-gray-600"><MapPin className="mr-2 text-[#0163AB]" /> Widum 19, 6890 Lustenau</p> 
+                <a className="flex items-center text-gray-600 hover:underline" href="tel:+436763807111"><Phone className="mr-2 text-[#0163AB]" /> +43 676 3807111</a>
+                <span className="flex items-center text-gray-600 hover:underline"><Mail className="mr-2 text-[#0163AB]" /> <EmailLink /></span>  
+                <a className="flex items-center text-gray-600 hover:underline" href="https://maps.google.com/?q=Fränkis+Pub+Lustenau"><MapPin className="mr-2 text-[#0163AB]" /> Widum 19, 6890 Lustenau</a> 
               </div>
               <div className="w-full md:w-1/2 max-w-md">
                 <form className="space-y-4">
@@ -314,73 +358,151 @@ export default function Component() {
           </div>
         </section>
 
-        <section id="reservieren" className="py-20 bg-gray-200 -skew-y-3 relative z-10">
-          <div className="container mx-auto px-6 -skew-y-3">
-            <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Billiard Tisch reservieren</h2>
-            <form className="max-w-md mx-auto space-y-4">
-              <input
-                type="text"
-                placeholder="Name"
-                className=" w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                className=" w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
-                required
-              />
-              <input
-                type="tel"
-                placeholder="Telefonnummer"
-                className=" w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
-                required
-              />
-              <input
-                type="date"
-                className=" w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
-                required
-              />
-              <input
-                type="time"
-                className=" w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
-                required
-              />
-              <select
-                className=" w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
-                required
+        <section
+      id="reservieren"
+      className="py-20 bg-gray-200 -skew-y-3 relative z-10"
+    >
+      <div className="container mx-auto px-6 -skew-y-3">
+        <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">
+          Billiard Tisch reservieren
+        </h2>
+        <form className="max-w-md mx-auto space-y-4">
+          <input
+            type="text"
+            placeholder="Name"
+            className="w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+            required
+          />
+          <input
+            type="tel"
+            placeholder="Telefonnummer"
+            className="w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+            required
+          />
+          {/* Custom Date Picker */}
+          <div className="relative">
+            <div
+              onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
+              className="w-full p-2 bg-white rounded-md cursor-pointer text-gray-800 hover:scale-105 transition-transform duration-200"
+            >
+              {selectedDate || "Datum auswählen"}
+            </div>
+            {isDatePickerOpen && (
+              <div
+                className="absolute w-full bg-white shadow-md rounded-md mt-2 p-4 z-50 overflow-y-auto max-h-64"
               >
-                <option value="">Tischnummer</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-              </select>
-              <motion.button
-                type="submit"
-                className=" w-full bg-gradient-to-r from-[#0164ab] to-[#267fbe] text-white font-semibold py-2 rounded-md transition-colors duration-300 hover:scale-105 transition-transform duration-200"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={(e) => {
-                  e.preventDefault()
-                  handleClick()
-                }}
-              >
-                Reservieren
-              </motion.button>
-            </form>
+                <div className="flex justify-between items-center mb-4">
+                  <button
+                    onClick={() =>
+                      setSelectedMonth(
+                        (prev) => (prev === 0 ? 11 : prev - 1)
+                      )
+                    }
+                    className="p-2 bg-gray-200 rounded-md"
+                  >
+                    &lt;
+                  </button>
+                  <span className="font-semibold text-gray-800">
+                    {months[selectedMonth]} {selectedYear}
+                  </span>
+                  <button
+                    onClick={() =>
+                      setSelectedMonth(
+                        (prev) => (prev === 11 ? 0 : prev + 1)
+                      )
+                    }
+                    className="p-2 bg-gray-200 rounded-md"
+                  >
+                    &gt;
+                  </button>
+                </div>
+                <div className="grid grid-cols-7 gap-2">
+                  {generateDays().map((day) => (
+                    <div
+                      key={day}
+                      className={`p-2 ${
+                        selectedDate ===
+                        `${selectedYear}-${String(selectedMonth + 1).padStart(
+                          2,
+                          "0"
+                        )}-${String(day).padStart(2, "0")}`
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-100 hover:bg-blue-500 hover:text-white"
+                      } text-center cursor-pointer rounded-md`}
+                      onClick={() => {
+                        setSelectedDate(
+                          `${selectedYear}-${String(
+                            selectedMonth + 1
+                          ).padStart(2, "0")}-${String(day).padStart(2, "0")}`
+                        );
+                        setIsDatePickerOpen(false);
+                      }}
+                    >
+                      {day}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        </section>
+
+          {/* Custom Dropdown */}
+          <div className="relative">
+            <div
+              className="w-full p-2 bg-white rounded-md cursor-pointer text-gray-800 hover:scale-105 transition-transform duration-200"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              {selectedTable || "Tischnummer auswählen"}
+            </div>
+            {dropdownOpen && (
+              <div className="absolute left-0 w-full bg-white shadow-md rounded-md mt-2 z-20">
+                {["1", "2", "3", "4"].map((num) => (
+                  <div
+                    key={num}
+                    className="p-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => {
+                      setSelectedTable(num);
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    Tisch {num}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <motion.button
+            type="submit"
+            className="w-full bg-gradient-to-r from-[#0164ab] to-[#267fbe] text-white font-semibold py-2 rounded-md transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={(e) => {
+              e.preventDefault();
+              console.log("Form submitted");
+            }}
+          >
+            Reservieren
+          </motion.button>
+        </form>
+      </div>
+    </section>
+        
       </main>
-      <footer className="bg-gray-100 text-black font-bold py-6 relative z-30">
+      <footer className="bg-gray-100 text-black font-bold py-6 relative z-0">
         <div className="container mx-auto px-6 text-center">
           <p>&copy; 2024 Fränkis. All rights reserved.</p>
           <div className="flex justify-center space-x-4 mt-4">
             <Link href="https://www.instagram.com/fraenkis_lustenau/" target="_blank" rel="noopener noreferrer">
-              <Instagram className=" h-6 w-6 text-black hover:text-blue-400 transition-colors duration-300 hover:scale-105 transition-transform duration-200" />
+              <Instagram className=" h-6 w-6 text-black hover:text-[#0163AB] transition-all duration-300" />
             </Link>
             <Link href="https://www.facebook.com/fraenkislustenau" target="_blank" rel="noopener noreferrer">
-              <Facebook className=" h-6 w-6 text-black hover:text-blue-400 transition-colors duration-300 hover:scale-105 transition-transform duration-200" />
+              <Facebook className=" h-6 w-6 text-black hover:text-[#0163AB] transition-all duration-300" />
             </Link>
           </div>
         </div>

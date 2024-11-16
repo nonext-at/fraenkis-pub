@@ -6,6 +6,20 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.mapboxgl-ctrl-logo {
+  display: none !important;
+}
+
+.skewed-section * {
+  transform: skewY(3deg);
+}
+
+.skewed-section input,
+.skewed-section select {
+  transform: skewY(-3deg); /* Cancel out for natural look */
+}
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
