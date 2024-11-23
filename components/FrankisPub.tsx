@@ -175,7 +175,7 @@ export default function Component() {
               <Image draggable={false} src={"/logo_blue.png"} className='select-none mx-auto drop-shadow-[0_0_3px_rgba(0,0,0,0.2)] ' width={100} height={100} alt=''></Image>
             </div>
             <nav>
-              <ul className="sm:flex space-x-6 hidden">
+              <ul className="lg:flex space-x-6 hidden">
                 {['Home', 'Aktivitäten', 'Öffnungszeiten', 'Anfahrt', 'Kontakt', 'Reservieren'].map((item) => (
                   <li key={item}>
                     <a
@@ -225,6 +225,45 @@ export default function Component() {
                 </span>
               </h1>
             </div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="fixed top-24 right-10 bg-gradient-to-r from-gray-100/90 to-gray-200/90 text-black px-8 py-4 rounded-lg shadow-lg flex items-center gap-6 z-50 max-w-lg w-full mx-4"
+            >
+              <div className="flex-1">
+                <p className="text-lg font-bold mb-2">
+                  🎉 Neu: Karaoke Night
+                </p>
+                <p className="text-base">
+                  am Freitag, 24. Nov!
+                  <a href="#event-details" className="ml-2 text-black underline font-bold hover:text-blue-200 transition-colors duration-300">
+                    Jetzt ansehen!
+                  </a>
+                </p>
+              </div>
+              <button className="text-black text-2xl hover:text-blue-200 transition-colors duration-300 focus:outline-none">
+                ✕
+              </button>
+            </motion.div>
+
+
+            <Image
+                  draggable={false}
+                  src="/qr.png"
+                  alt="WhatsApp QR-Code"
+                  width={120}
+                  height={120}
+                  className="rounded-lg shadow-md mb-4 absolute bottom-24 left-6 lg:bottom-28 xl:bottom-36 skew-y-3 hidden md:block"
+                />
+ 
+              <div className="md:hidden absolute top-24 rounded-full p-2 bg-green-400/60 items-center text-white leading-none lg:rounded-full flex" role="alert">
+                <span className="flex rounded-full bg-green-400 uppercase px-2 py-1 text-xs font-bold mr-3">Neu</span>
+                <span className="font-semibold mr-2 text-left flex-auto">Tritt unserer Whatsapp Gruppe bei</span>
+                <svg className="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+              </div> 
+
           </section>
 
           <section id="aktivitäten" className="py-20 bg-white skew-y-3 -mt-20 shadow-md">
@@ -306,7 +345,7 @@ export default function Component() {
             </div>
           </section>
 
-          <section id="whatsapp" className="py-20 bg-gray-200 -skew-y-3 relative z-10">
+          {/* <section id="whatsapp" className="py-20 bg-gray-200 -skew-y-3 relative z-10">
             <div className="container mx-auto px-6 -skew-y-3">
               <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Tritt unserer <span className='text-[#0163AB]'>WhatsApp</span>-Gruppe bei</h2>
               <div className="flex flex-col items-center">
@@ -321,52 +360,8 @@ export default function Component() {
                 <p className="text-gray-600 text-center">Scanne diesen QR-Code mit deinem Handy, um unserer WhatsApp-Gruppe beizutreten <br /> und über Events und Aktionen auf dem Laufenden zu bleiben!</p>
               </div>
             </div>
-          </section>
-
-          <section id="kontakt" className="py-20 bg-white skew-y-3 relative z-20 shadow-md">
-            <div className="container mx-auto px-6 -skew-y-3">
-              <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Kontakt</h2>
-              <div className="flex flex-col md:flex-row justify-around items-center gap-8">
-                <div className="space-y-4">
-                  <a className="flex items-center text-gray-600 hover:underline" href="tel:+436763807111"><Phone className="mr-2 text-[#0163AB]" /> +43 676 3807111</a>
-                  <span className="flex items-center text-gray-600 hover:underline"><Mail className="mr-2 text-[#0163AB]" /> <EmailLink /></span>
-                  <a className="flex items-center text-gray-600 hover:underline" href="https://maps.google.com/?q=Fränkis+Pub+Lustenau"><MapPin className="mr-2 text-[#0163AB]" /> Widum 19, 6890 Lustenau</a>
-                </div>
-                <div className="w-full md:w-1/2 max-w-md">
-                  <form className="space-y-4">
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      className=" w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
-                      required
-                    />
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      className=" w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
-                      required
-                    />
-                    <textarea
-                      placeholder="Nachricht"
-                      rows={4}
-                      className=" w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
-                      required
-                    ></textarea>
-                    <motion.button
-                      type="submit"
-                      className=" w-full bg-gradient-to-r from-[#0163AB] to-[#267fbe] text-white font-semibold py-2 rounded-md transition-colors duration-300 hover:scale-105 transition-transform duration-200"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Nachricht senden
-                    </motion.button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section
+          </section> */}
+<section
             id="reservieren"
             className="py-20 bg-gray-200 -skew-y-3 relative z-10"
           >
@@ -497,6 +492,49 @@ export default function Component() {
                   Reservieren
                 </motion.button>
               </form>
+            </div>
+          </section>
+
+          <section id="kontakt" className="py-20 bg-white relative z-0 shadow-md">
+            <div className="container mx-auto px-6">
+              <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Kontakt</h2>
+              <div className="flex flex-col md:flex-row justify-around items-center gap-8">
+                <div className="space-y-4">
+                  <a className="flex items-center text-gray-600 hover:underline" href="tel:+436763807111"><Phone className="mr-2 text-[#0163AB]" /> +43 676 3807111</a>
+                  <span className="flex items-center text-gray-600 hover:underline"><Mail className="mr-2 text-[#0163AB]" /> <EmailLink /></span>
+                  <a className="flex items-center text-gray-600 hover:underline" href="https://maps.google.com/?q=Fränkis+Pub+Lustenau"><MapPin className="mr-2 text-[#0163AB]" /> Widum 19, 6890 Lustenau</a>
+                </div>
+                <div className="w-full md:w-1/2 max-w-md">
+                  <form className="space-y-4">
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      className=" w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                      required
+                    />
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      className=" w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                      required
+                    />
+                    <textarea
+                      placeholder="Nachricht"
+                      rows={4}
+                      className=" w-full p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                      required
+                    ></textarea>
+                    <motion.button
+                      type="submit"
+                      className=" w-full bg-gradient-to-r from-[#0163AB] to-[#267fbe] text-white font-semibold py-2 rounded-md transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Nachricht senden
+                    </motion.button>
+                  </form>
+                </div>
+              </div>
             </div>
           </section>
 
