@@ -62,6 +62,21 @@ function MapboxMap() {
   return <div ref={mapContainer} className="map-container sm:skew-y-3 h-[400px] w-full rounded-lg shadow-md" />
 }
 
+const months = [
+  "Januar",
+  "Februar",
+  "März",
+  "April",
+  "Mai",
+  "Juni",
+  "Juli",
+  "August",
+  "September",
+  "Oktober",
+  "November",
+  "Dezember",
+];
+
 export default function Component() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
   const controls = useAnimation()
@@ -82,41 +97,27 @@ export default function Component() {
     })
   }, [cursorPosition, controls]) */
 
-  const [isLoading, setIsLoading] = useState(false)
-
+  
   const handleClick = () => {
     setIsLoading(true)
     setTimeout(() => setIsLoading(false), 2000)
   }
-
+  
   useEffect(() => {
     document.documentElement.style.scrollBehavior = 'smooth'
     return () => {
       document.documentElement.style.scrollBehavior = 'auto'
     }
   }, [])
-
+  
+  const [isLoading, setIsLoading] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedTable, setSelectedTable] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-
-  const months = [
-    "Januar",
-    "Februar",
-    "März",
-    "April",
-    "Mai",
-    "Juni",
-    "Juli",
-    "August",
-    "September",
-    "Oktober",
-    "November",
-    "Dezember",
-  ];
+  const [popupVisible, setPopupVisible] = useState(true);
 
   useEffect(() => {
     const today = new Date();
@@ -198,7 +199,7 @@ export default function Component() {
             </div>
           </div>
         </header>
-        <main className='bg-gradient-to-br from-blue-100 via-indigo-100 to-sky-100'>
+        <main className='bg-gray-100'>
           <section id="home" className="h-screen flex items-center justify-center relative overflow-hidden">
             {/* Background Video */}
             <video
@@ -226,28 +227,30 @@ export default function Component() {
               </h1>
             </div>
 
-            <motion.div 
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="fixed top-24 right-10 bg-gradient-to-r from-gray-100/90 to-gray-200/90 text-black px-8 py-4 rounded-lg shadow-lg flex items-center gap-6 z-50 max-w-lg w-full mx-4"
-            >
-              <div className="flex-1">
-                <p className="text-lg font-bold mb-2">
-                  🎉 Neu: Karaoke Night
-                </p>
-                <p className="text-base">
-                  am Freitag, 24. Nov!
-                  <a href="#event-details" className="ml-2 text-black underline font-bold hover:text-blue-200 transition-colors duration-300">
-                    Jetzt ansehen!
-                  </a>
-                </p>
-              </div>
-              <button className="text-black text-2xl hover:text-blue-200 transition-colors duration-300 focus:outline-none">
-                ✕
-              </button>
-            </motion.div>
 
+            {popupVisible &&
+              <motion.div 
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }} 
+                className="fixed top-24 right-10 bg-gradient-to-r from-gray-100/90 to-gray-200/90 text-black px-8 py-4 rounded-lg shadow-lg flex items-center gap-6 z-50 max-w-lg w-full mx-4"
+              >
+                <div className="flex-1">
+                  <p className="text-lg font-bold mb-2">
+                    🎉 Neu: Karaoke Night
+                  </p>
+                  <p className="text-base">
+                    am Freitag, 24. Nov!
+                    <a href={'#aktivitäten'} onClick={() => setPopupVisible(false)} className="ml-2 text-black underline font-bold hover:text-gray-600 transition-colors duration-300">
+                      Jetzt ansehen!
+                    </a>
+                  </p>
+                </div>
+                <button onClick={() => setPopupVisible(false)} className="text-black text-2xl hover:text-gray-600 transition-colors duration-300 focus:outline-none">
+                  ✕
+                </button>
+              </motion.div>
+            }
 
             <Image
                   draggable={false}
