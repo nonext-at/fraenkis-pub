@@ -28,6 +28,7 @@ export default function BillardForm() {
 
     const [selectedDate, setSelectedDate] = useState("");
     const [email, setEmail] = useState("");
+    const [emailValid, setEmailValid] = useState<boolean>(false)
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [selectedTable, setSelectedTable] = useState("");
@@ -48,9 +49,9 @@ export default function BillardForm() {
     }, []);
 
     useEffect(() => {
-        if (selectedTable && selectedDate && email && name && phone) setAllowSubmit(true)
+        if (selectedTable && selectedDate && email.trim() && name.trim() && phone && validateEmail(email)) setAllowSubmit(true)
         else setAllowSubmit(false)
-    }, [selectedTable, selectedDate, email, name, phone]);
+    }, [selectedTable, selectedDate, email, name, phone, emailValid]);
 
     const daysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
 
@@ -60,6 +61,12 @@ export default function BillardForm() {
             days.push(i);
         }
         return days;
+    };
+
+    const validateEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setEmailValid(regex.test(email));
+        return regex.test(email);
     };
 
 
@@ -77,21 +84,22 @@ export default function BillardForm() {
                     <input
                         type="text"
                         placeholder="Name"
-                        className="w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                        className="w-full p-2 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                         required
                         onChange={(e) => setName(e.target.value)}
                     />
                     <input
                         type="email"
                         placeholder="Email"
-                        className="w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                        className={"w-full p-2 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200 " + (!emailValid && "border-red-500")}
                         required
+                        onBlur={(e) => validateEmail(e.target.value)}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <input
                         type="tel"
                         placeholder="Telefonnummer"
-                        className="w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
+                        className="w-full p-2 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                         required
                         onChange={(e) => setPhone(e.target.value)}
                     />
