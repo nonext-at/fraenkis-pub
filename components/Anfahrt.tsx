@@ -1,4 +1,4 @@
-import { MapboxMap } from "@/utils/mapboxConfig";
+import { MapboxMap } from "@/components/Mapbox";
 import { MapPin } from 'lucide-react'
 
 export default function Anfahrt() {
