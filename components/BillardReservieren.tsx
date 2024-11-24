@@ -28,7 +28,7 @@ export default function BillardForm() {
 
     const [selectedDate, setSelectedDate] = useState("");
     const [email, setEmail] = useState("");
-    const [emailValid, setEmailValid] = useState<boolean>(false)
+    const [emailValid, setEmailValid] = useState<boolean>(true)
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [selectedTable, setSelectedTable] = useState("");
