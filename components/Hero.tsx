@@ -45,9 +45,9 @@ export default function Hero() {
                             🎉 Neu: Karaoke Night
                         </p>
                         <p className="text-base">
-                            am Freitag, 24. Nov!
+                            An jedem ersten Donnerstag im Monat!
                             <a href={'#aktivitäten'} onClick={() => setPopupVisible(false)} className="ml-2 text-black underline font-bold hover:text-gray-600 transition-colors duration-300">
-                                Jetzt ansehen!
+                                Mehr Infos
                             </a>
                         </p>
                     </div>

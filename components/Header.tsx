@@ -10,8 +10,8 @@ export default function Header() {
                     <Image draggable={false} src={"/logo_blue.png"} className='select-none mx-auto drop-shadow-[0_0_3px_rgba(0,0,0,0.2)] ' width={100} height={100} alt=''></Image>
                 </div>
                 <nav>
-                    <ul className="lg:flex space-x-6 hidden">
-                        {['Home', 'Aktivitäten', 'Öffnungszeiten', 'Anfahrt', 'Kontakt', 'Reservieren'].map((item) => (
+                    <ul className="lg:flex space-x-7 hidden">
+                        {['Home', 'Aktivitäten', 'Öffnungszeiten', 'Anfahrt', 'Reservieren', 'Kontakt'].map((item) => (
                             <li key={item}>
                                 <a
                                     href={`#${item.toLowerCase()}`}
