@@ -27,11 +27,15 @@ export default function BillardForm() {
     }, [])
 
     const [selectedDate, setSelectedDate] = useState("");
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
     const [selectedTable, setSelectedTable] = useState("");
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+    const [allowSubmit, setAllowSubmit] = useState<boolean>(false)
 
     useEffect(() => {
         const today = new Date();
@@ -42,6 +46,11 @@ export default function BillardForm() {
             )}-${String(today.getDate()).padStart(2, "0")}`
         );
     }, []);
+
+    useEffect(() => {
+        if (selectedTable && selectedDate && email && name && phone) setAllowSubmit(true)
+        else setAllowSubmit(false)
+    }, [selectedTable, selectedDate, email, name, phone]);
 
     const daysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
 
@@ -70,18 +79,21 @@ export default function BillardForm() {
                         placeholder="Name"
                         className="w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                         required
+                        onChange={(e) => setName(e.target.value)}
                     />
                     <input
                         type="email"
                         placeholder="Email"
                         className="w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                         required
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     <input
                         type="tel"
                         placeholder="Telefonnummer"
                         className="w-full p-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                         required
+                        onChange={(e) => setPhone(e.target.value)}
                     />
                     {/* Custom Date Picker */}
                     <div className="relative">
@@ -157,9 +169,10 @@ export default function BillardForm() {
                     />
                     <motion.button
                         type="submit"
-                        className="w-full bg-gradient-to-r from-[#0164ab] to-[#267fbe] text-white font-semibold py-2 rounded-md hover:scale-105 transition-all duration-200"
+                        className={"w-full bg-gradient-to-r from-[#0164ab] to-[#267fbe] text-white font-semibold py-2 rounded-md hover:scale-105 transition-all duration-200" + (!allowSubmit && " opacity-60")}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
+                        disabled={!allowSubmit}
                         onClick={(e) => {
                             e.preventDefault();
                             console.log("Form submitted");
@@ -169,6 +182,6 @@ export default function BillardForm() {
                     </motion.button>
                 </form>
             </div>
-        </section>
+        </section >
     )
 }
