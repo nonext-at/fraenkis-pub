@@ -5,32 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { useState } from 'react'
 
-export default function Aktivitäten() {
+export default function Aktivitäten({ aktivitäten }) {
     const [selectedActivity, setSelectedActivity] = useState(null)
-
-    const activities = [
-        {
-            icon: MicVocal,
-            title: 'Karaoke Abend',
-            date: 'Jeden ersten Donnerstag',
-            image: '/karaoke.jpeg',
-            description: 'Erlebe einen spaßigen Karaoke-Abend mit Freunden und Familie. Mikrofone werden gestellt!',
-        },
-        {
-            icon: Baby,
-            title: 'Family Nachmittag',
-            date: '1h gratis Billiard - Jeden dritten Sonntag (13:00 - 18:00)',
-            image: '/family_billiard.jpg',
-            description: 'Ein entspannter Nachmittag für die ganze Familie mit Spielen und Snacks.',
-        },
-        {
-            icon: Beer,
-            title: 'Frühschoppen',
-            date: 'Jeden ersten Sonntag (10:00 - 14:00)',
-            image: '/fruehschoppen.jpg',
-            description: 'Genießen Sie ein herzhaftes Frühstück und frische Getränke in geselliger Runde.',
-        },
-    ]
 
     return (
         <>
@@ -38,25 +14,25 @@ export default function Aktivitäten() {
                 <div className="container mx-auto px-6 -skew-y-3">
                     <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Aktivitäten &amp; Events</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {activities.map(({ icon: Icon, title, date, image, description }) => (
+                        {aktivitäten.map(({ bild, titel, text, beschreibung }) => (
                             <motion.div
-                                key={title}
+                                key={titel}
                                 className="select-none bg-gray-50 rounded-lg shadow-md hover:shadow-blue-200 transition-all duration-200 overflow-hidden"
-                                whileHover={{ scale: 1.02 }} 
-                                onClick={() => setSelectedActivity({ title, date, image, description })}
+                                whileHover={{ scale: 1.02 }}
+                                onClick={() => setSelectedActivity({ titel, text, bild, beschreibung })}
                             >
                                 <div className="relative h-56 w-full cursor-pointer">
                                     <Image
-                                        src={image}
-                                        alt={title}
+                                        src={bild}
+                                        alt={titel}
                                         layout="fill"
                                         objectFit="cover"
                                         className="transition-transform duration-300 hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                                     <div className="absolute bottom-4 left-4 right-4 text-white">
-                                        <h3 className="text-xl font-semibold mb-1">{title}</h3>
-                                        <p className="text-sm">{date}</p>
+                                        <h3 className="text-xl font-semibold mb-1">{titel}</h3>
+                                        <p className="text-sm">{text}</p>
                                     </div>
                                 </div>
                             </motion.div>
@@ -85,8 +61,8 @@ export default function Aktivitäten() {
                         >
                             <div className="relative h-64 w-full">
                                 <Image
-                                    src={selectedActivity.image}
-                                    alt={selectedActivity.title}
+                                    src={selectedActivity.bild}
+                                    alt={selectedActivity.titel}
                                     layout="fill"
                                     objectFit="cover"
                                 />
@@ -104,12 +80,12 @@ export default function Aktivitäten() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.2, duration: 0.3 }}
                             >
-                                <h3 className="text-2xl font-bold mb-2 text-gray-800">{selectedActivity.title}</h3>
+                                <h3 className="text-2xl font-bold mb-2 text-gray-800">{selectedActivity.titel}</h3>
                                 <p className="text-gray-600 mb-4 flex items-center">
                                     <Calendar className="mr-2 h-5 w-5" />
-                                    {selectedActivity.date}
+                                    {selectedActivity.text}
                                 </p>
-                                <p className="text-gray-700">{selectedActivity.description}</p>
+                                <p className="text-gray-700">{selectedActivity.beschreibung}</p>
                                 <motion.button
                                     className="mt-6 w-full bg-[#0163AB] text-white py-2 px-4 rounded-md hover:bg-[#034f87] transition-colors duration-200"
                                     whileHover={{ scale: 1.05 }}

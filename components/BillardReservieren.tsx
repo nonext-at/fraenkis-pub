@@ -1,3 +1,4 @@
+'use client'
 import { motion } from "framer-motion";
 import CustomDropdown from "./ui/CustomDropdown";
 import { useEffect, useState } from "react";
@@ -77,9 +78,10 @@ export default function BillardForm() {
             className="py-20 bg-gray-200 -skew-y-3 relative z-10"
         >
             <div className="container mx-auto px-6 -skew-y-3">
-                <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">
+                <h2 className="text-4xl font-bold mb-2 text-center text-gray-800">
                     Billiard Tisch reservieren
                 </h2>
+                <p className="text-sm px-48 mb-6 text-center text-gray-400">Wir bemühen uns, Ihren gewünschten Tisch bereitzustellen. Bitte beachten Sie jedoch, dass die Auswahl eines bestimmten Tisches nicht garantiert werden kann. Ein Tisch wird in jedem Fall für Sie freigehalten.</p>
                 <form className="max-w-md mx-auto space-y-4">
                     <input
                         type="text"

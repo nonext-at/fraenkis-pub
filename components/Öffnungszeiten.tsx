@@ -1,4 +1,4 @@
-export default function Öffnungszeiten() {
+export default function Öffnungszeiten({ öffnungszeiten }) {
     return (
         <section id="öffnungszeiten" className="py-20 bg-gray-200 -skew-y-3 relative z-20 shadow-md">
             <div className="container mx-auto px-6 -skew-y-3">
@@ -6,8 +6,8 @@ export default function Öffnungszeiten() {
                 <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
                     <ul className="space-y-2">
                         <li className="flex justify-between">
-                            <span className="font-semibold">Jeden Tag:</span>
-                            <span>19:00 - 02:00</span>
+                            <span className="font-semibold">{öffnungszeiten.tag}:</span>
+                            <span>{öffnungszeiten.uhrzeiten}</span>
                         </li>
                     </ul>
                 </div>
