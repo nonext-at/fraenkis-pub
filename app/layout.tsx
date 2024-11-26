@@ -42,7 +42,7 @@ export default function RootLayout({
         <meta property="og:title" content="Fränkis Pub in Lustenau - Unterhaltung pur" />
         <meta
           property="og:description"
-          content="Willkommen im Fränkis Pub in Vorarlberg. Entdecke unser breites Angebot an Unterhaltung: Bar, Billard, Dart und mehr!"
+          content="Willkommen im Fränkis Pub in Lustenau. Entdecke unser breites Angebot an Unterhaltung: Bar, Billard, Dart und mehr!"
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://fraenkis.at/" />
@@ -78,8 +78,28 @@ export default function RootLayout({
             description:
               "Fränkis Pub in Lustenau, Vorarlberg: Bar, Billard, Dart, Flipper, Airhockey und mehr.",
             openingHours: "Mo-So 19:00-02:00",
+            sameAs: [
+              "https://www.facebook.com/fraenkispub",
+              "https://www.instagram.com/fraenkispub",
+            ],
           })}
         </script>
+
+        {/* Keywords Meta Tag */}
+        <meta
+          name="keywords"
+          content="Fränkis Pub, Bar in Lustenau, Billard Lustenau, Dart Lustenau, Pub Vorarlberg, Unterhaltung Lustenau, Billiard, Flipper, Airhockey, Tischfußball"
+        />
+
+        {/* Canonical Link */}
+        <link rel="canonical" href="https://fraenkis.at/" />
+
+        {/* Additional Meta Tags for Local SEO */}
+        <meta name="robots" content="index, follow" />
+        <meta name="geo.region" content="AT-8" />
+        <meta name="geo.placename" content="Lustenau" />
+        <meta name="geo.position" content="47.4215;9.6586" />
+        <meta name="ICBM" content="47.4215, 9.6586" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

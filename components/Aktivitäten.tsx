@@ -25,10 +25,12 @@ export default function Aktivitäten({ aktivitäten }) {
                                     <Image
                                         src={bild}
                                         alt={titel}
-                                        layout="fill"
-                                        objectFit="cover"
+                                        fill 
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        style={{ objectFit: "cover" }} 
                                         className="transition-transform duration-300 hover:scale-110"
                                     />
+
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                                     <div className="absolute bottom-4 left-4 right-4 text-white">
                                         <h3 className="text-xl font-semibold mb-1">{titel}</h3>
@@ -63,8 +65,8 @@ export default function Aktivitäten({ aktivitäten }) {
                                 <Image
                                     src={selectedActivity.bild}
                                     alt={selectedActivity.titel}
-                                    layout="fill"
-                                    objectFit="cover"
+                                    fill 
+                                    style={{ objectFit: "cover" }} 
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                                 <button

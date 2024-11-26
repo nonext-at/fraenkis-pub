@@ -7,7 +7,22 @@ export default function Header() {
         <header className="fixed w-full z-40 bg-white bg-opacity-80 backdrop-blur-md shadow-md">
             <div className="container mx-auto px-6 py-3 flex justify-between items-center">
                 <div className="flex items-center">
-                    <Image draggable={false} src={"/logo_blue.png"} className='select-none mx-auto drop-shadow-[0_0_3px_rgba(0,0,0,0.2)] ' width={100} height={100} alt=''></Image>
+
+                    <Image
+                        draggable={false}
+                        src="/logo_blue.png"
+                        alt="Logo"
+                        width={100}
+                        height={40}
+                        priority
+                        className="select-none mx-auto drop-shadow-[0_0_3px_rgba(0,0,0,0.2)]"
+                        style={{
+                            width: "100px", // Explicitly set width
+                            height: "40px", // Explicitly set height
+                        }}
+                    />
+
+
                 </div>
                 <nav>
                     <ul className="lg:flex space-x-7 hidden">

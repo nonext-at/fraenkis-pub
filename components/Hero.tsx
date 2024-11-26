@@ -21,7 +21,7 @@ export default function Hero({ whatsapp, news }) {
 
     return (
         <section id="home" className="h-screen flex items-center justify-center relative overflow-hidden">
-            <video
+            <video 
                 className="absolute inset-0 w-full h-full object-cover blur-md"
                 src="/bg-video.mp4"
                 //@ts-ignore
@@ -50,13 +50,12 @@ export default function Hero({ whatsapp, news }) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: isMobile ? 20 : -50 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className={`fixed ${
-                        isMobile ? 'bottom-4 left-4 right-4' : 'top-24 right-10 max-w-lg'
-                    } bg-gradient-to-r from-gray-100/90 to-gray-200/90 text-black px-3 sm:px-8 py-3 sm:py-4 rounded-lg shadow-lg flex items-center gap-2 sm:gap-6 z-50`}
+                    className={`fixed ${isMobile ? 'bottom-4 left-4 right-4' : 'top-24 right-10 max-w-lg'
+                        } bg-gradient-to-r from-gray-100/90 to-gray-200/90 text-black px-3 sm:px-8 py-3 sm:py-4 rounded-lg shadow-lg flex items-center gap-2 sm:gap-6 z-50`}
                 >
                     <div className="flex-1">
                         <p className="text-sm sm:text-lg font-bold mb-0 sm:mb-2">
-                        🎉 {news.titel}
+                            🎉 {news.titel}
                         </p>
                         <p className="text-xs sm:text-base">
                             {news.text}
@@ -82,10 +81,16 @@ export default function Hero({ whatsapp, news }) {
                 draggable={false}
                 src={whatsapp['qr-code']}
                 alt="WhatsApp QR-Code"
-                width={120}
+                priority
+                width={120} 
                 height={120}
                 className="rounded-lg shadow-md mb-4 absolute bottom-24 left-6 lg:bottom-28 xl:bottom-36 skew-y-3 hidden md:block"
+                style={{
+                    width: "120px",
+                    height: "120px",
+                }}
             />
+
 
             <a href={whatsapp['link']} target='_blank' className="md:flex skew-y-3 absolute bottom-28 left-40 lg:bottom-32 xl:bottom-36 rounded-full p-2 bg-white/60 items-center text-white leading-none lg:rounded-full hidden" role="alert">
                 <span className="flex rounded-full bg-green-400 uppercase px-2 py-1 text-xs font-bold mr-3">Neu</span>
