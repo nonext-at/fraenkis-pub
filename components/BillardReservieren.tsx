@@ -81,7 +81,7 @@ export default function BillardForm() {
                 <h2 className="text-4xl font-bold mb-2 text-center text-gray-800">
                     Billiard Tisch reservieren
                 </h2>
-                <p className="text-sm px-48 mb-6 text-center text-gray-400">Wir bemühen uns, Ihren gewünschten Tisch bereitzustellen. Bitte beachten Sie jedoch, dass die Auswahl eines bestimmten Tisches nicht garantiert werden kann. Ein Tisch wird in jedem Fall für Sie freigehalten.</p>
+                <p className="text-sm max-w-[50rem] mx-auto mb-6 text-center text-gray-400">Wir bemühen uns, Ihren gewünschten Tisch bereitzustellen. Bitte beachten Sie jedoch, dass die Auswahl eines bestimmten Tisches nicht garantiert werden kann. Ein Tisch wird in jedem Fall für Sie freigehalten.</p>
                 <form className="max-w-md mx-auto space-y-4">
                     <input
                         type="text"
