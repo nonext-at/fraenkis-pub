@@ -40,7 +40,7 @@ export function MapboxMap() {
 
         const openMaps = () => {
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+            const mapsUrl = `https://maps.google.com/?q=Fränkis+Pub+Lustenau`;
 
             if (isMobile) {
                 // For mobile devices, try to open in a maps app

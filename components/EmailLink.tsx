@@ -1,19 +1,17 @@
-import { decodeEmail } from "../utils/decodeEmail";
-import { useEffect, useState } from "react";
+'use client';
 
-const EmailLink = () => {
-  const [email, setEmail] = useState<string | null>(null);
+import { useEffect, useState } from 'react';
 
-  useEffect(() => {
-    const decodedEmail = decodeEmail();
-    setEmail(decodedEmail);
+export default function MailtoObfuscate() {
+  const [email, setEmail] = useState('');
+
+  useEffect(() => { 
+    const user = 'info';
+    const domain = 'fraenkis.at';
+    setEmail(`${user}@${domain}`);
   }, []);
 
-  if (!email) {
-    return <noscript><a href="contact-form.html">info@fränkis.at</a></noscript>;
-  }
-
-  return <a href={`mailto:${email}`}>info@fränkis.at</a>;
-};
-
-export default EmailLink;
+  return (
+      <a href={`mailto:${email}`}>{email || 'loading...'}</a>
+  );
+}

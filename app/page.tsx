@@ -9,7 +9,7 @@ import Footer from '@/components/Footer'
 import Hero from '@/components/Hero'
 
 export default async function Home() {
-  const firebaseData = await fetchFirebaseData();
+  const firebaseData = await fetchFirebaseData(); 
 
   if (!firebaseData) {
     return <div>Error loading data. Please try again later.</div>;

@@ -8,7 +8,7 @@ export default function Footer() {
                 <div className="flex flex-col items-center justify-center space-y-4">
                     <p className="text-sm text-center">&copy; {new Date().getFullYear()} Fränkis. Alle Rechte vorbehalten.</p>
                     <p className="text-center text-gray-500 text-sm">
-                        Made with 🖤 by <a href="https://www.nonext.io/" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors duration-300">nonext.io</a>
+                        Made with 🖤 by <a href="https://www.nonext.at/" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors duration-300">nonext.at</a>
                     </p>
                     <div className="flex items-center space-x-6">
                         <Link 

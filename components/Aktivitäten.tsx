@@ -1,6 +1,6 @@
 'use client'
 
-import { MicVocal, Baby, Beer, X, Calendar } from 'lucide-react'
+import { MicVocal, Baby, Beer, X, Calendar, ExternalLink } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { useState } from 'react'
@@ -14,20 +14,20 @@ export default function Aktivitäten({ aktivitäten }) {
                 <div className="container mx-auto px-6 -skew-y-3">
                     <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">Aktivitäten &amp; Events</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {aktivitäten.map(({ bild, titel, text, beschreibung }) => (
+                        {aktivitäten.map(({ bild, titel, text, beschreibung, link }) => (
                             <motion.div
                                 key={titel}
                                 className="select-none bg-gray-50 rounded-lg shadow-md hover:shadow-blue-200 transition-all duration-200 overflow-hidden"
                                 whileHover={{ scale: 1.02 }}
-                                onClick={() => setSelectedActivity({ titel, text, bild, beschreibung })}
+                                onClick={() => setSelectedActivity({ titel, text, bild, beschreibung, link })}
                             >
                                 <div className="relative h-56 w-full cursor-pointer">
                                     <Image
                                         src={bild}
                                         alt={titel}
-                                        fill 
+                                        fill
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        style={{ objectFit: "cover" }} 
+                                        style={{ objectFit: "cover" }}
                                         className="transition-transform duration-300 hover:scale-110"
                                     />
 
@@ -65,8 +65,8 @@ export default function Aktivitäten({ aktivitäten }) {
                                 <Image
                                     src={selectedActivity.bild}
                                     alt={selectedActivity.titel}
-                                    fill 
-                                    style={{ objectFit: "cover" }} 
+                                    fill
+                                    style={{ objectFit: "cover" }}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                                 <button
@@ -88,6 +88,15 @@ export default function Aktivitäten({ aktivitäten }) {
                                     {selectedActivity.text}
                                 </p>
                                 <p className="text-gray-700">{selectedActivity.beschreibung}</p>
+                                <a
+                                    className="text-[#0163AB] flex items-center mt-4"
+                                    href={selectedActivity.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Erfahre mehr
+                                    <ExternalLink className="ml-2 h-4 w-4" />
+                                </a>
                                 <motion.button
                                     className="mt-6 w-full bg-[#0163AB] text-white py-2 px-4 rounded-md hover:bg-[#034f87] transition-colors duration-200"
                                     whileHover={{ scale: 1.05 }}
@@ -97,6 +106,7 @@ export default function Aktivitäten({ aktivitäten }) {
                                     Schließen
                                 </motion.button>
                             </motion.div>
+
                         </motion.div>
                     </motion.div>
                 )}

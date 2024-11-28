@@ -37,7 +37,7 @@ export default function Kontakt() {
                     <div className="space-y-4">
                         <a className="flex items-center text-gray-600 hover:underline" href="tel:+436763807111"><Phone className="mr-2 text-[#0163AB]" /> +43 676 3807111</a>
                         <span className="flex items-center text-gray-600 hover:underline"><Mail className="mr-2 text-[#0163AB]" /> <EmailLink /></span>
-                        <a className="flex items-center text-gray-600 hover:underline" href="https://maps.google.com/?q=Fränkis+Pub+Lustenau"><MapPin className="mr-2 text-[#0163AB]" /> Widum 19, 6890 Lustenau</a>
+                        <a className="flex items-center text-gray-600 hover:underline" href="https://maps.google.com/?q=Fränkis+Pub+Lustenau" target='_blank' rel='noreferrer'><MapPin className="mr-2 text-[#0163AB]" /> Widum 19, 6890 Lustenau</a>
                     </div>
                     <div className="w-full md:w-1/2 max-w-md">
                         <form className="space-y-4">
