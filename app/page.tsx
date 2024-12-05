@@ -26,7 +26,7 @@ export default async function Home() {
           <Anfahrt />
           
           {/* <BillardForm /> */}
-          {/* <Kontakt /> */}
+          <Kontakt />
           
         </main>
         <Footer />
