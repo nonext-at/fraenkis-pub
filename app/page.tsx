@@ -1,8 +1,8 @@
 import { fetchFirebaseData } from '@/lib/firebaseUtils';
-import BillardForm from '@/components/BillardReservieren'
+//import BillardForm from '@/components/BillardReservieren'
 import Öffnungszeiten from '@/components/Öffnungszeiten'
 import Aktivitäten from '@/components/Aktivitäten'
-import Kontakt from '@/components/Kontakt'
+//import Kontakt from '@/components/Kontakt'
 import Anfahrt from '@/components/Anfahrt'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -24,8 +24,10 @@ export default async function Home() {
           <Aktivitäten aktivitäten={firebaseData.aktivitäten} />
           <Öffnungszeiten öffnungszeiten={firebaseData.öffnungszeiten} />
           <Anfahrt />
-          <BillardForm />
-          <Kontakt />
+          
+          {/* <BillardForm /> */}
+          {/* <Kontakt /> */}
+          
         </main>
         <Footer />
       </div>
