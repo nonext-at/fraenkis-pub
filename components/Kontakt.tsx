@@ -40,14 +40,17 @@ export default function Kontakt() {
                         <a className="flex items-center text-gray-600 hover:underline" href="https://maps.google.com/?q=Fränkis+Pub+Lustenau" target='_blank' rel='noreferrer'><MapPin className="mr-2 text-[#0163AB]" /> Widum 19, 6890 Lustenau</a>
                     </div>
                     <div className="w-full md:w-1/2 max-w-md">
+                        <p className="text-gray-600">Formular temporär deaktiviert. Bitte per Mail kontaktieren.</p>
                         <form className="space-y-4">
                             <input
+                                disabled
                                 type="checkbox"
                                 placeholder="Validation"
                                 onChange={(e) => setIsBot(e.target.checked)}
                                 hidden
                             />
                             <input
+                                disabled
                                 type="text"
                                 placeholder="Name"
                                 className="w-full p-2 border bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
@@ -55,6 +58,7 @@ export default function Kontakt() {
                                 required
                             />
                             <input
+                                disabled
                                 type="email"
                                 placeholder="Email"
                                 className={"w-full p-2 border bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200 " + (!emailValid && "border-red-500")}
@@ -63,6 +67,7 @@ export default function Kontakt() {
                                 required
                             />
                             <textarea
+                                disabled
                                 placeholder="Nachricht"
                                 rows={4}
                                 className="w-full p-2 border bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
@@ -70,6 +75,7 @@ export default function Kontakt() {
                                 required
                             ></textarea>
                             <motion.button
+                                disabled
                                 type="submit"
                                 className={"w-full bg-gradient-to-r from-[#0163AB] to-[#267fbe] text-white font-semibold py-2 rounded-md hover:scale-105 transition-all duration-200" + (!allowSubmit && " opacity-60")}
                                 whileHover={{ scale: 1.05 }}
