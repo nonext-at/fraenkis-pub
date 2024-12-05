@@ -40,7 +40,7 @@ export default function Kontakt() {
                         <a className="flex items-center text-gray-600 hover:underline" href="https://maps.google.com/?q=Fränkis+Pub+Lustenau" target='_blank' rel='noreferrer'><MapPin className="mr-2 text-[#0163AB]" /> Widum 19, 6890 Lustenau</a>
                     </div>
                     <div className="w-full md:w-1/2 max-w-md">
-                        <p className="text-gray-600">Formular temporär deaktiviert. Bitte per Mail kontaktieren.</p>
+                        <p className="text-gray-600 mb-8">Formular temporär deaktiviert. Bitte per Mail kontaktieren.</p>
                         <form className="space-y-4">
                             <input
                                 disabled
