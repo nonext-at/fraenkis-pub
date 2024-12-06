@@ -23,7 +23,7 @@ export default function Hero({ whatsapp, news }) {
         <section id="home" className="h-screen flex items-center justify-center relative overflow-hidden">
             <video 
                 className="absolute inset-0 w-full h-full object-cover blur-md"
-                src="/bg-video.mp4"
+                src="/bg.mp4"
                 //@ts-ignore
                 type="video/webm"
                 autoPlay
