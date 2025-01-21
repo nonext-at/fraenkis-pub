@@ -28,7 +28,7 @@ export async function POST(req) {
         // Send email
         await transporter.sendMail({
             from: process.env.SMTP_USER, // Sender's email (your email)
-            to: "kontakt@fraenkis.at", // Your receiving email
+            to: "info@fraenkis.at", // Your receiving email
             replyTo: email, // This allows you to reply directly to the sender
             subject: `Neue Billiardtisch-Reservierung: ${name}`, // Better subject line
             html: `
