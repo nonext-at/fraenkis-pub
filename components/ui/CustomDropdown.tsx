@@ -16,7 +16,7 @@ export default function CustomDropdown({ selectedTable, setSelectedTable, dropdo
             </div>
             {dropdownOpen && (
                 <div className="absolute left-0 w-full bg-white shadow-md rounded-md mt-2 z-20">
-                    {["1", "2", "3", "4", "5", "6", "7", "8"].map((num) => (
+                    {["Egal", "1", "2", "3", "4", "5", "6", "7", "8"].map((num) => (
                         <div
                             key={num}
                             className="p-2 hover:bg-gray-100 cursor-pointer"
