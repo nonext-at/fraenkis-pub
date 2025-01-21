@@ -3,12 +3,16 @@ import nodemailer from "nodemailer";
 export async function POST(req) {
     try {
         const body = await req.json();
-        const { name, email, message } = body;
+        const { name, email, phone, selectedDate, selectedTime, selectedTable } = body;
+
+        console.log (name, email, phone, selectedDate, selectedTime, selectedTable);
 
         // Validate input
-        if (!name || !email || !message) {
+        if (!name || !email || !phone || !selectedDate || !selectedTime || !selectedTable) {
             return new Response(JSON.stringify({ message: "All fields are required." }), { status: 400 });
         }
+
+        const formattedDate = formatDate(selectedDate);
 
         // Nodemailer setup
         const transporter = nodemailer.createTransport({
@@ -26,14 +30,16 @@ export async function POST(req) {
             from: process.env.SMTP_USER, // Sender's email (your email)
             to: process.env.SMTP_USER, // Your receiving email
             replyTo: email, // This allows you to reply directly to the sender
-            subject: `Neue Kontaktanfrage: ${name}`, // Better subject line
+            subject: `Neue Billiardtisch-Reservierung: ${name}`, // Better subject line
             html: `
                 <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-                    <h2 style="color: #555;">Neue Kontaktanfrage</h2>
+                    <h2 style="color: #555;">Neue Reservierungsanfrage</h2>
                     <p><strong>Absender:</strong> ${name} (<a href="mailto:${email}">${email}</a>)</p>
-                    <p><strong>Nachricht:</strong></p>
-                    <p style="background: #f9f9f9; padding: 10px; border-left: 3px solid #007BFF;">${message}</p>
-                    <p style="margin-top: 20px;">Diese Nachricht wurde über das Kontaktformular gesendet.</p>
+                    <p><strong>Telefon:</strong> ${phone}</p>
+                    <p><strong>Datum:</strong> ${formattedDate}</p>
+                    <p><strong>Uhrzeit:</strong> ${selectedTime}</p>
+                    <p><strong>Tisch Nummer:</strong> ${selectedTable}</p>
+                    <p style="margin-top: 20px;">Diese Nachricht wurde über das Reservierungsformular gesendet.</p>
                 </div>
             `, // Improved HTML content
         });
@@ -43,4 +49,9 @@ export async function POST(req) {
         console.error(error);
         return new Response(JSON.stringify({ message: "Failed to send email.", error }), { status: 500 });
     }
+}
+
+function formatDate(date) {
+    const [year, month, day] = date.split("-");
+    return `${day}.${month}.${year}`;
 }

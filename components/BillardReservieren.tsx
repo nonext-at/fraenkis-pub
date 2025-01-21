@@ -2,6 +2,9 @@
 import { motion } from "framer-motion";
 import CustomDropdown from "./ui/CustomDropdown";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import StatusFeedback from "./StatusFeedback";
+import TimePicker from "./TimePicker";
 
 const months = [
     "Januar",
@@ -26,7 +29,6 @@ export default function BillardForm() {
             document.documentElement.style.scrollBehavior = 'auto'
         }
     }, [])
-
     const [selectedDate, setSelectedDate] = useState("");
     const [email, setEmail] = useState("");
     const [emailValid, setEmailValid] = useState<boolean>(true)
@@ -34,10 +36,24 @@ export default function BillardForm() {
     const [phone, setPhone] = useState("");
     const [selectedTable, setSelectedTable] = useState("");
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+    const [isBot, setIsBot] = useState<boolean>(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
     const [allowSubmit, setAllowSubmit] = useState<boolean>(false)
+    const [selectedTime, setSelectedTime] = useState("")
+
+    useEffect(() => {
+        if (isBot) {
+            setAllowSubmit(false)
+            console.error("Bot detected!")
+        }
+        if (name.trim() && email.trim() && phone.trim() && selectedTable.trim() && validateEmail(email)) {
+            setAllowSubmit(true)
+        } else {
+            setAllowSubmit(false)
+        }
+    }, [name, email, phone, selectedTable, isBot])
 
     useEffect(() => {
         const today = new Date();
@@ -70,24 +86,63 @@ export default function BillardForm() {
         return regex.test(email);
     };
 
+    const [status, setStatus] = useState<string>("")
 
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+
+        if (!allowSubmit) return
+
+        setStatus("Sending...")
+
+        try {
+            const response = await axios.post("/api/billiard", {
+                name,
+                email,
+                phone,
+                selectedDate,
+                selectedTime,
+                selectedTable,
+            })
+
+            if (response.status === 200) {
+                setStatus("Message sent successfully!")
+                setName("")
+                setEmail("")
+                setPhone("")
+                setSelectedDate("")
+                setSelectedTime("")
+                setSelectedTable("")
+            } else {
+                setStatus(`Error: ${response.data.message}`)
+            }
+        } catch (error) {
+            console.error(error)
+            setStatus("Error: Failed to send message.")
+        }
+    }
 
     return (
         <section
             id="reservieren"
             className="py-20 bg-gray-200 -skew-y-3 relative z-10"
         >
-            <div className="container mx-auto px-6 -skew-y-3">
+            <div className="container mx-auto px-6 -skew-y-3 flex flex-col items-center justify-center">
                 <h2 className="text-4xl font-bold mb-2 text-center text-gray-800">
                     Billiard Tisch reservieren
                 </h2>
                 <p className="text-sm max-w-[50rem] mx-auto mb-6 text-center text-gray-400">Wir bemühen uns, Ihren gewünschten Tisch bereitzustellen. Bitte beachten Sie jedoch, dass die Auswahl eines bestimmten Tisches nicht garantiert werden kann. Ein Tisch wird in jedem Fall für Sie freigehalten.</p>
-                <form className="max-w-md mx-auto space-y-4">
+                <div className="w-full max-w-md pl-24">
+                    <StatusFeedback status={status} />
+                </div>
+                <form className="max-w-md mx-auto space-y-4" onSubmit={handleSubmit}>
+                    <input type="checkbox" placeholder="Validation" onChange={(e) => setIsBot(e.target.checked)} hidden />
                     <input
                         type="text"
                         placeholder="Name"
                         className="w-full p-2 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                         required
+                        value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
                     <input
@@ -95,6 +150,7 @@ export default function BillardForm() {
                         placeholder="Email"
                         className={"w-full p-2 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200 " + (!emailValid && "border-red-500")}
                         required
+                        value={email}
                         onBlur={(e) => validateEmail(e.target.value)}
                         onChange={(e) => setEmail(e.target.value)}
                     />
@@ -103,6 +159,7 @@ export default function BillardForm() {
                         placeholder="Telefonnummer"
                         className="w-full p-2 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 hover:scale-105 transition-transform duration-200"
                         required
+                        value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                     />
                     {/* Custom Date Picker */}
@@ -170,7 +227,7 @@ export default function BillardForm() {
                             </div>
                         )}
                     </div>
-
+                    <TimePicker selectedTime={selectedTime} setSelectedTime={setSelectedTime}  />
                     <CustomDropdown
                         selectedTable={selectedTable}
                         setSelectedTable={setSelectedTable}
@@ -183,10 +240,7 @@ export default function BillardForm() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         disabled={!allowSubmit}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            console.log("Form submitted");
-                        }}
+
                     >
                         Reservieren
                     </motion.button>
